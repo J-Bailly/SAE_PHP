@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <?php require_once("app/views/template/template.php")
 
 
@@ -8,3 +9,9 @@
         <p><?= $restaurant->getCuisineType() ?></p>
     </div>
 <?php //endforeach; ?>
+=======
+<?php require_once("flavorya/views/template/template_accueil.php")
+
+
+?>
+>>>>>>> Stashed changes
