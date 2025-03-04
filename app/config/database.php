@@ -6,7 +6,17 @@ class Database {
     private $pdo;
 
     public function __construct() {
-        $this->pdo = new PDO('DATABASE_URL=postgresql://postgres:root@db.dhhugougxeqqjglegovv.supabase.co:5432/postgres');
+        $user="postgres.dhhugougxeqqjglegovv";
+        $password="root";
+        $host="aws-0-eu-west-3.pooler.supabase.com";
+        $port="6543";
+        $dbname="postgres";
+        try {
+            $pdo = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die("Erreur de connexion à la base de données : " . $e->getMessage());
+        }
     }
 
     public function getConnection() {
