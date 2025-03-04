@@ -6,84 +6,6 @@
     <title>Restaurants</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/png" href="flavorya.png">
-    <script defer src="script.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background: #2c3e50;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .carousel-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 50px auto;
-            position: relative;
-        }
-        .carousel {
-            display: flex;
-            gap: 10px;
-            overflow: hidden;
-            width: 80%;
-        }
-        .card {
-            flex: 0 0 30%;
-            background: white;
-            padding: 20px;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease-in-out;
-        }
-        .card.active {
-            transform: scale(1.1);
-        }
-        button {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #2c3e50;
-        }
-        .prev{
-            padding: 50px;
-        }
-        nav {
-            display: flex;
-            width: 100%;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .nav-left, .nav-right {
-            display: flex;
-            gap: 15px;
-        }
-        .nav-left a, .nav-right a {
-            color: #284D63;
-            text-decoration: none;
-            font-size: 18px;
-            background-color: #f4f4f4;
-            padding: 7px;
-            border-radius: 7px;
-        }
-        .logo {
-            height: 60px;
-            margin: 5px;
-            justify-content: center;
-        }
-        .nav-left a:hover, .nav-right a:hover{
-            background-color: #3C6F71;
-            color: #f4f4f4;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -103,13 +25,16 @@
     </header>
     
     <section class="carousel-container">
-        <button id="prev">&#10094;</button>
+        <button class="prev" id="prev">&#10094;</button>
         <div class="carousel">
-            <div class="card">Feur<span>Nom resto / Avis / Cuisine</span></div>
+            <div class="card">Image d'un resto <span>Nom resto / Avis / Cuisine</span></div>
             <div class="card active">Image d’un resto <span>Nom resto / Avis / Cuisine</span></div>
             <div class="card">Image d’un resto <span>Nom resto / Avis / Cuisine</span></div>
         </div>
-        <button id="next">&#10095;</button>
+        <button class="next" id="next">&#10095;</button>
     </section>
+    <div class="footer">
+        <p>&copy; 2025  | Tous droits réservés | Contactez-nous pour plus d'informations.</p>
+    </div>
 </body>
 </html>

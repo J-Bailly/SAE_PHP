@@ -1,0 +1,110 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #EEEDFF;
+}
+
+header {
+    background: #284E7B;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.carousel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+    position: relative;
+    width: 80%; /* Réduire la largeur pour laisser de l'espace aux boutons */
+}
+
+.carousel {
+    display: flex;
+    gap: 35px;
+    overflow: visible;
+    width: 100%; /* Le carrousel prend toute la largeur du conteneur */
+    justify-content: center;
+}
+
+.card {
+    flex: 0 0 auto;
+    background: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 1px 8px 9px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease-in-out;
+}
+
+.card.active {
+    transform: scale(1.1);
+}
+
+button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #2c3e50;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.prev {
+    left: -40px; /* Déplacer le bouton précédent à gauche des cartes */
+}
+
+.next {
+    right: -40px; /* Déplacer le bouton suivant à droite des cartes */
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-left, .nav-right {
+    display: flex;
+    gap: 15px;
+}
+
+.boutonNav{
+    color: #284E7B;
+    text-decoration: none;
+    font-size: 18px;
+    background-color: #EEEDFF;
+    padding: 7px;
+    border-radius: 7px;
+}
+
+.logo {
+    height: 60px;
+    margin: 5px;
+    justify-content: center;
+}
+
+.boutonNav:hover{
+    background-color: #B6CDE8;
+    color: #EEEDFF;
+    transition: 300ms;
+}
+
+.footer {
+    background: #284E7B;
+    padding: 15px 20px;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+}
+.footer p{
+    color: #EEEDFF;
+    text-align: center;
+}
