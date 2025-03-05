@@ -18,9 +18,9 @@ session_start(); // Assure-toi que la session est démarrée pour accéder aux i
         <nav>
             <div class="nav-left">
                 <a href="#" class="boutonNav">Accueil</a>
-                <a href="#" class="boutonNav">Favoris</a>
+                <a href=".php" class="boutonNav">Mes Avis</a>
                 <?php if (isset($_SESSION['user_id'])): // Si l'utilisateur est connecté ?>
-                    <a href=".php" class="boutonNav">Mes Avis</a>
+                    <a href="#" class="boutonNav">Favoris</a>
                 <?php endif; ?>
             </div>
             <img src="app/assets/images/flavorya.png" alt="Flavorya Logo" class="logo">
