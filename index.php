@@ -1,0 +1,1 @@
+<?php require_once("flavorya/views/template/template_accueil.php")?>

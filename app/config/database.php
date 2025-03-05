@@ -6,7 +6,7 @@ class Database {
     private $pdo;
 
     public function __construct() {
-        $this->pdo = new \PDO('mysql:host=your_host;dbname=your_dbname', 'username', 'password');
+        $this->pdo = new PDO('DATABASE_URL=postgresql://postgres:root@db.dhhugougxeqqjglegovv.supabase.co:5432/postgres');
     }
 
     public function getConnection() {
