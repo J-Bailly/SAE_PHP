@@ -3,11 +3,15 @@
 <section>
     <h2>Liste des Restaurants</h2>
     <ul>
-        <?php foreach ($restaurants as $restaurant): ?>
-            <li>
-                <strong><?php echo htmlspecialchars($restaurant->getName()); ?></strong> - 
-                Cuisine : <?php echo htmlspecialchars($restaurant->getCuisineType()); ?>
-            </li>
-        <?php endforeach; ?>
+        <?php if ($Restaurants != []): ?>
+            <?php foreach ($Restaurants as $restaurant): ?>
+                <li>
+                    <strong><?php echo htmlspecialchars($Restaurant->getName()); ?></strong> - 
+                    Cuisine : <?php echo htmlspecialchars($Restaurant->getCuisineType()); ?>
+                </li>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <h1>ça marche a moitié</h1>
+        <?php endif; ?>
     </ul>
 </section>

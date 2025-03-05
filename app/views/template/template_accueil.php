@@ -18,7 +18,7 @@ session_start(); // Assure-toi que la session est démarrée pour accéder aux i
         <nav>
             <div class="nav-left">
                 <a href="#" class="boutonNav">Accueil</a>
-                <a href=".php" class="boutonNav">Mes Avis</a>
+                <a href="#" class="boutonNav">Mes Avis</a>
                 <?php if (isset($_SESSION['user_id'])): // Si l'utilisateur est connecté ?>
                     <a href="#" class="boutonNav">Favoris</a>
                 <?php endif; ?>
