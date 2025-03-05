@@ -1,17 +1,15 @@
-<?php require_once("template/template.php"); ?>
+<?php
 
-<section>
-    <h2>Liste des Restaurants</h2>
-    <ul>
-        <?php if ($Restaurants != []): ?>
-            <?php foreach ($Restaurants as $restaurant): ?>
-                <li>
-                    <strong><?php echo htmlspecialchars($Restaurant->getName()); ?></strong> - 
-                    Cuisine : <?php echo htmlspecialchars($Restaurant->getCuisineType()); ?>
-                </li>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <h1>ça marche a moitié</h1>
-        <?php endif; ?>
-    </ul>
-</section>
+if (!empty($restaurants)) {
+    foreach ($restaurants as $restaurant) {
+        echo "<div class='restaurant'>";
+        echo "<h2>{$restaurant['name']}</h2>";
+        echo "<p>Adresse : {$restaurant['address']}</p>";
+        echo "<p>Téléphone : {$restaurant['phone']}</p>";
+        echo "<p>Site web : <a href='{$restaurant['website']}' target='_blank'>{$restaurant['website']}</a></p>";
+        echo "<p>Horaires : {$restaurant['opening_hours']}</p>";
+        echo "</div>";
+    }
+} else {
+    echo "<p>Aucun restaurant trouvé.</p>";
+}

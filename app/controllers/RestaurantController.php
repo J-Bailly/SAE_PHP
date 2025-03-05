@@ -2,19 +2,12 @@
 
 namespace App\Controllers;
 
-use App\Models\Restaurant;
-use App\Config\Database; // Ajout de l'importation de la classe Database
+use app\services\JsonLoader;
 
 class RestaurantController {
     public function index() {
-        // Création de l'instance de la classe Database pour obtenir la connexion
-        $db = new Database();
-        $pdo = $db->getConnection();
-        
-        // Récupérer tous les restaurants en utilisant la connexion PDO
-        $restaurants = Restaurant::getAllRestaurants($pdo);
-
-        // Charger la vue avec les restaurants
+        $jsonFilePath = __DIR__ . '/../../app/data/restaurants_orleans.json';
+        $restaurants = JsonLoader::load($jsonFilePath);
         require_once __DIR__ . '/../views/restaurants/restaurant_list.php';
     }
 }

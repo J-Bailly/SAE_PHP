@@ -1,21 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace app\controllers;
 
-use App\Config\Database;
+use app\services\JsonLoader; // Importer JsonLoader
 
-class Restaurant {
+class RestaurantController {
+    public function index() {
+        // Chemin vers le fichier JSON
+        $jsonFilePath = __DIR__ . '/../../app/data/restaurants_orleans.json';
 
-    public static function getAllRestaurants() {
-        $db = new Database();
-        $conn = $db->getConnection();
-    
-        try {
-            // Utilisez le bon nom de table (en minuscules ou avec des guillemets si nécessaire)
-            $stmt = $conn->query("SELECT * FROM Restaurants");
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            die("Erreur lors de la récupération des restaurants : " . $e->getMessage());
-        }
+        // Charger les données JSON
+        $restaurants = JsonLoader::load($jsonFilePath);
+
+        // Passer les données à la vue
+        require_once __DIR__ . '/../views/restaurants/restaurant_list.php';
     }
 }

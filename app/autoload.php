@@ -1,16 +1,15 @@
 <?php
 
 spl_autoload_register(function ($class) {
-    // Retirer "App\" du namespace
-    $class = str_replace("App\\", "", $class);
+    // Convertir le namespace en chemin de fichier
+    $class = str_replace("app\\", "app/", $class);
     $class = str_replace("\\", "/", $class) . ".php";
 
-    // Correction du chemin
-    $file = __DIR__ . "/" . lcfirst($class); // Respecte la casse des dossiers sous Linux
+    $file = __DIR__ . "/../" . $class;
 
     if (file_exists($file)) {
         require_once $file;
     } else {
-        die("❌ ERREUR : Impossible de charger la classe '$class'. Fichier introuvable : $file");
+        die("❌ ERREUR : Impossible de charger la classe $class. Fichier introuvable : $file");
     }
 });
