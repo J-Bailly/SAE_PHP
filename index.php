@@ -3,7 +3,7 @@
 
 require_once "app/autoload.php"; // Inclusion de l'autoloader
 
-use App\Controllers\RestaurantController;
+use app\controllers\RestaurantController;
 
 $controller = new RestaurantController();
 $controller->index();
