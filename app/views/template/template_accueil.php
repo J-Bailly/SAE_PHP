@@ -9,8 +9,8 @@ session_start(); // Assure-toi que la session est démarrée pour accéder aux i
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flavorya</title>
-    <link rel="stylesheet" href="flavorya/assets/css/styles.css">
-    <link rel="icon" type="image/png" href="flavorya/assets/images/flavorya.png">
+    <link rel="stylesheet" href="app/assets/css/styles.css">
+    <link rel="icon" type="image/png" href="app/assets/images/flavorya.png">
 </head>
 
 <body>
@@ -23,7 +23,7 @@ session_start(); // Assure-toi que la session est démarrée pour accéder aux i
                     <a href=".php" class="boutonNav">Mes Avis</a>
                 <?php endif; ?>
             </div>
-            <img src="flavorya/assets/images/flavorya.png" alt="Flavorya Logo" class="logo">
+            <img src="app/assets/images/flavorya.png" alt="Flavorya Logo" class="logo">
             <div class="nav-right">
                 <?php if (isset($_SESSION['user_id'])): // Si l'utilisateur est connecté ?>
                     <span>Bienvenue, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</span>
