@@ -1,5 +1,6 @@
 <?php
 echo "<h1>Liste des restaurants</h1>";
+print_r(sizeof($restaurants));
 if (!empty($restaurants)) {
     foreach ($restaurants as $restaurant) {
         echo "<div class='restaurant-bord'>";

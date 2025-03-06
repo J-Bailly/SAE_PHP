@@ -4,7 +4,6 @@ namespace app\models;
 
 use app\services\jsonloader; // Importer JsonLoader
 
-
 class Restaurant
 {
     private ?int $restaurant_id;
@@ -43,80 +42,19 @@ class Restaurant
     private ?string $operator;
 
     // Constructeur pour initialiser les propriétés
-    public function __construct(
-        ?int $restaurant_id = null,
-        ?string $name = null,
-        ?string $type = null,
-        ?bool $vegetarian = null,
-        ?bool $vegan = null,
-        ?bool $delivery = null,
-        ?bool $takeaway = null,
-        ?string $phone = null,
-        ?string $website = null,
-        ?string $address = null,
-        ?float $latitude = null,
-        ?float $longitude = null,
-        ?string $opening_hours = null,
-        ?bool $wheelchair_accessibility = null,
-        ?string $internet_access = null,
-        ?bool $smoking_allowed = null,
-        ?int $capacity = null,
-        ?bool $drive_through = null,
-        ?string $facebook = null,
-        ?string $siret = null,
-        ?string $department = null,
-        ?string $region = null,
-        ?string $brand = null,
-        ?string $wikidata = null,
-        ?string $brand_wikidata = null,
-        ?int $com_insee = null,
-        ?int $code_region = null,
-        ?int $code_departement = null,
-        ?string $commune = null,
-        ?string $com_nom = null,
-        ?int $code_commune = null,
-        ?string $osm_edit = null,
-        ?string $osm_id = null,
-        ?string $operator = null
-    ) {
-        $this->restaurant_id = $restaurant_id;
-        $this->name = $name;
-        $this->type = $type;
-        $this->vegetarian = $vegetarian;
-        $this->vegan = $vegan;
-        $this->delivery = $delivery;
-        $this->takeaway = $takeaway;
-        $this->phone = $phone;
-        $this->website = $website;
-        $this->address = $address;
-        $this->latitude = $latitude;
-        $this->longitude = $longitude;
-        $this->opening_hours = $opening_hours;
-        $this->wheelchair_accessibility = $wheelchair_accessibility;
-        $this->internet_access = $internet_access;
-        $this->smoking_allowed = $smoking_allowed;
-        $this->capacity = $capacity;
-        $this->drive_through = $drive_through;
-        $this->facebook = $facebook;
-        $this->siret = $siret;
-        $this->department = $department;
-        $this->region = $region;
-        $this->brand = $brand;
-        $this->wikidata = $wikidata;
-        $this->brand_wikidata = $brand_wikidata;
-        $this->com_insee = $com_insee;
-        $this->code_region = $code_region;
-        $this->code_departement = $code_departement;
-        $this->commune = $commune;
-        $this->com_nom = $com_nom;
-        $this->code_commune = $code_commune;
-        $this->osm_edit = $osm_edit;
-        $this->osm_id = $osm_id;
-        $this->operator = $operator;
+    public function __construct($data = [])
+    {
+        if (!is_array($data)) {
+            throw new \InvalidArgumentException('Argument $data must be of type array.');
+        }
 
+        foreach ($data as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->$key = $value;
+            }
+        }
 
-
-        $this->address = JsonLoader::getAddressFromCoordinates($latitude, $longitude);
+        
 
     }
 
