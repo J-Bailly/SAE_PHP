@@ -163,12 +163,19 @@ button {
     border-radius: 15px;
     text-align: center;
     width: 50%;
+    display: flex;
+    text-decoration: none;
+    color: inherit;
 }
 
 .restaurant-interieur {
     background-color: #B6CDE8;
     padding: 10px;
     border-radius: 10px;
+    margin-left: 5px;
+    flex-grow: 1;
+    width: 180px;
+    height: max-content;
 }
 
 /* Assure que le contenu principal prend tout l'espace disponible */
@@ -180,4 +187,11 @@ button {
 /* Style pour le dernier restaurant */
 .restaurant-bord:last-child {
     margin-bottom: 100px; /* Ajoute un espace supplémentaire en bas pour le dernier élément */
+}
+
+.restaurant-image{
+    border-radius: 10px;
+    margin-right: 5px;
+    height: max-content;
+    width: fit-content;
 }
