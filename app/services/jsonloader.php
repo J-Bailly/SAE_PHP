@@ -61,4 +61,8 @@ class jsonloader {
 
         return "Adresse non trouvée";
     }
+
+    public static function getTypeRestaurant(){
+        
+    }
 }

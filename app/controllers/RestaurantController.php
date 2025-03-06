@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\services\jsonloader;
 
 class RestaurantController {
+    
     public function index() {
         // Chemin vers le fichier JSON
         $jsonFilePath = __DIR__ . '/../../app/data/restaurants_orleans.json';

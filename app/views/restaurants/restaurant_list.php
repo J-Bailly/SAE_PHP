@@ -2,6 +2,7 @@
 
 if (!empty($restaurants)) {
     foreach ($restaurants as $restaurant) {
+        echo "<a href=''>";
         echo "<div class='restaurant-bord'>";
         echo "<div class='restaurant-interieur'>";
         echo "<h2>{$restaurant['name']}</h2>";
@@ -11,6 +12,7 @@ if (!empty($restaurants)) {
         echo "<p>Horaires : {$restaurant['opening_hours']}</p>";
         echo "</div>";
         echo "</div>";
+        echo "</a>";
     }
 } else {
     echo "<p>Aucun restaurant trouvé.</p>";
