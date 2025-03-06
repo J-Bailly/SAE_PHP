@@ -195,3 +195,28 @@ button {
     height: max-content;
     width: fit-content;
 }
+
+/* app/assets/css/styles.css */
+
+.restaurant-details {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.restaurant-details img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.restaurant-details h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.restaurant-details p {
+    font-size: 1.2em;
+    line-height: 1.6;
+}

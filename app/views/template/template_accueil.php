@@ -1,3 +1,7 @@
+<?php
+session_start(); // Assure-toi que la session est démarrée pour accéder aux informations de l'utilisateur
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -37,9 +41,9 @@
         </nav>
     </header>
 
-    <div class="footer">
-        <p>&copy; 2025 Flavorya est un site web fictif | Tous droits réservés | Contactez-nous pour plus d'informations.</p>
-    </div>
+    <footer class="footer">
+        <p>&copy; 2025 | Tous droits réservés | Contactez-nous pour plus d'informations.</p>
+    </footer>
 </body>
 
 </html>
