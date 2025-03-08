@@ -10,7 +10,6 @@ class User {
     private $prenom;
     private $cuisines_favorites;
     private $restaurants_favoris;
-    // Ajoute d'autres propriétés et méthodes nécessaires
 
     public function __construct($id, $prenom, $email, $password, $nom, $cuisines_favorites = [], $restaurants_favoris = []) {
         $this->id = $id;

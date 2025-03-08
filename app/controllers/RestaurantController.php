@@ -1,20 +1,65 @@
 <?php
 
-namespace app\controllers; // Créer un namespace pour le fichier
+namespace app\controllers;
 
-use app\models\Restaurant; // Importer la classe Restaurant
-use app\config\requete; // Importer la classe Requete   
-
+use app\services\jsonloader;
+use app\models\Restaurant;
+use app\config\requete;
 
 class RestaurantController {
+    
     public function index() {
-        // Chemin vers le fichier JSON
-        $jsonFilePath = __DIR__ . '/../../app/data/restaurants_orleans.json';
+        $jsonImage = __DIR__ . '/../../app/data/restaurant_images.json';
+        $images = jsonloader::load($jsonImage);
+    
+        $query = isset($_GET['search']) ? trim($_GET['search']) : '';
+    
+        if ($query !== '') {
+            $restaurants = Requete::seacrh_restaurant($query);
+        } else {
+            $restaurants = Requete::get_restaurants();
+        }
+    
 
-        // Charger les données JSON
-        $restaurants =  Requete::get_restaurants(10);
-
-        // Passer les données à la vue
+        foreach ($restaurants as $restaurant) {
+            $restaurantName = method_exists($restaurant, 'getName') ? $restaurant->getName() : $restaurant->name;
+            foreach ($images as $image) {
+                if ($image['name'] === $restaurantName) {
+                    if (method_exists($restaurant, 'setImageUrl')) {
+                        $restaurant->setImageUrl($image['image_url']);
+                    } else {
+                        $restaurant->image_url = $image['image_url'];
+                    }
+                    break;
+                }
+            }
+        }
+    
         require_once __DIR__ . '/../views/restaurants/restaurant_list.php';
+    }    
+
+    public function show($id) {
+        $jsonImage = __DIR__ . '/../../app/data/restaurant_images.json';
+        $images = jsonloader::load($jsonImage);
+
+        $restaurant = Requete::get_restaurant($id);
+
+        if (!$restaurant) {
+            die("Restaurant non trouvé");
+        }
+
+        $restaurantName = method_exists($restaurant, 'getName') ? $restaurant->getName() : $restaurant->name;
+        foreach ($images as $image) {
+            if ($image['name'] === $restaurantName) {
+                if (method_exists($restaurant, 'setImageUrl')) {
+                    $restaurant->setImageUrl($image['image_url']);
+                } else {
+                    $restaurant->image_url = $image['image_url'];
+                }
+                break;
+            }
+        }
+
+        require_once __DIR__ . '/../views/restaurants/restaurant_details.php';
     }
 }

@@ -10,7 +10,7 @@ use PDOException;
 
 class Requete {
 
-    static public function get_restaurants($limit = 10) {
+    static public function get_restaurants($limit = 30) {
         $pdo = Database::getConnection();
         $liste_restaurants = [];
         
@@ -31,6 +31,8 @@ class Requete {
 
         return $liste_restaurants;
     }
+
+    
 
 
     static public function get_restaurant($restaurant_id) {

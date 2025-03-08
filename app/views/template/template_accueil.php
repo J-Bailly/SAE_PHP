@@ -14,30 +14,39 @@ session_start(); // Assure-toi que la session est démarrée pour accéder aux i
 </head>
 
 <body>
-<header>
+    <header>
         <nav>
             <div class="nav-left">
-                <a href="#" class="boutonNav">Accueil</a>
-                <a href="#" class="boutonNav">Mes Avis</a>
+                <img src="app/assets/images/flavorya.png" alt="Flavorya Logo" class="logo">
+                <a href="#" class="boutonNavGauche">Accueil</a>
                 <?php if (isset($_SESSION['user_id'])): // Si l'utilisateur est connecté ?>
-                    <a href="#" class="boutonNav">Favoris</a>
+                    <a href="#" class="boutonNavGauche">Mes Avis</a>
+                    <a href="#" class="boutonNavGauche">Favoris</a>
                 <?php endif; ?>
             </div>
-            <img src="app/assets/images/flavorya.png" alt="Flavorya Logo" class="logo">
+
+            <div class="nav-center">
+                <form method="GET" action="index.php">
+                    <input type="search" name="search" placeholder="Rechercher un restaurant...">
+                </form>
+            </div>
+
+
             <div class="nav-right">
                 <?php if (isset($_SESSION['user_id'])): // Si l'utilisateur est connecté ?>
                     <span>Bienvenue, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</span>
-                    <a href="logout.php" class="boutonNav">Déconnexion</a>
+                    <a href="logout.php" class="boutonNavDroite">Déconnexion</a>
                 <?php else: // Si l'utilisateur n'est pas connecté ?>
-                    <a href="Signup.php" class="boutonNav">Inscription</a>
-                    <a href="login.php" class="boutonNav">Connexion</a>
+                    <a href="Signup.php" class="boutonNavDroite">Inscription</a>
+                    <a href="login.php" class="boutonNavDroite">Connexion</a>
                 <?php endif; ?>
             </div>
         </nav>
     </header>
-    <div class="footer">
-        <p>&copy; 2025 Flavorya est un site web fictif | Tous droits réservés | Contactez-nous pour plus d'informations.</p>
-    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 | Tous droits réservés | Contactez-nous pour plus d'informations.</p>
+    </footer>
 </body>
 
 </html>

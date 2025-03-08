@@ -39,23 +39,20 @@ class jsonloader {
             return "Adresse non trouvée";
         }
 
-        // Décoder la réponse JSON
         $data = json_decode($response, true);
 
-        // Extraire l'adresse
         if (isset($data['address'])) {
             $address = $data['address'];
 
-            // Récupérer le numéro de rue (house_number) si disponible
             $houseNumber = $address['house_number'] ?? '';
 
             // Construire l'adresse complète
             return implode(", ", array_filter([
-                $houseNumber, // Numéro de rue
-                $address['road'] ?? '', // Nom de la rue
-                $address['postcode'] ?? '', // Code postal
-                $address['city'] ?? '', // Ville
-                $address['country'] ?? '' // Pays
+                $houseNumber,
+                $address['road'] ?? '',
+                $address['postcode'] ?? '',
+                $address['city'] ?? '',
+                $address['country'] ?? ''
             ]));
         }
 

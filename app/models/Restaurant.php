@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\services\jsonloader; // Importer JsonLoader
+use app\services\jsonloader;
 
 class Restaurant
 {

@@ -3,6 +3,9 @@ body {
     margin: 0;
     padding: 0;
     background-color: #EEEDFF;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Assure que le body prend au moins toute la hauteur de la vue */
 }
 
 header {
@@ -11,6 +14,82 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 20px; /* Espace entre les éléments */
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espace entre le logo et les boutons */
+}
+
+.nav-center {
+    flex-grow: 1; /* Prend tout l'espace disponible au centre */
+    display: flex;
+    justify-content: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espace entre les boutons */
+}
+
+.logo {
+    height: 60px;
+    margin-right: 15px; /* Espace entre le logo et les boutons */
+}
+
+.boutonNavGauche {
+    color: #284E7B;
+    text-decoration: none;
+    font-size: 18px;
+    background-color: #EEEDFF;
+    padding: 7px 15px;
+    border-radius: 7px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.boutonNavGauche:hover {
+    background-color: #B6CDE8;
+    color: #EEEDFF;
+}
+
+input[type="search"] {
+    padding: 7px 15px;
+    border: none;
+    border-radius: 7px;
+    font-size: 16px;
+    width: 300px; /* Largeur de la barre de recherche */
+    background-color: #EEEDFF;
+    color: #284E7B;
+    outline: none;
+}
+
+input[type="search"]::placeholder {
+    color: #284E7B;
+    opacity: 0.7;
+}
+
+.boutonNavDroite {
+    color: #284E7B;
+    text-decoration: none;
+    font-size: 18px;
+    background-color: #EEEDFF;
+    padding: 7px 15px;
+    border-radius: 7px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.boutonNavDroite:hover {
+    background-color: #B6CDE8;
+    color: #EEEDFF;
 }
 
 .carousel-container {
@@ -63,39 +142,6 @@ button {
     right: -40px; /* Déplacer le bouton suivant à droite des cartes */
 }
 
-nav {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-left, .nav-right {
-    display: flex;
-    gap: 15px;
-}
-
-.boutonNav{
-    color: #284E7B;
-    text-decoration: none;
-    font-size: 18px;
-    background-color: #EEEDFF;
-    padding: 7px;
-    border-radius: 7px;
-}
-
-.logo {
-    height: 60px;
-    margin: 5px;
-    justify-content: center;
-}
-
-.boutonNav:hover{
-    background-color: #B6CDE8;
-    color: #EEEDFF;
-    transition: 300ms;
-}
-
 .footer {
     background: #284E7B;
     padding: 15px 20px;
@@ -104,21 +150,73 @@ nav {
     left: 0;
     bottom: 0;
 }
-.footer p{
+
+.footer p {
     color: #EEEDFF;
     text-align: center;
 }
 
-.restaurant-bord{
+.restaurant-bord {
     background-color: #284E7B;
-    margin: 15px;
+    margin: 10px;
     padding: 5px;
     border-radius: 15px;
     text-align: center;
     width: 50%;
+    display: flex;
+    text-decoration: none;
+    color: inherit;
 }
 
-.restaurant-interieur{
+.restaurant-interieur {
     background-color: #B6CDE8;
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 5px;
+    flex-grow: 1;
+    width: 180px;
+    height: max-content;
+}
 
+/* Assure que le contenu principal prend tout l'espace disponible */
+.main-content {
+    flex: 1;
+    padding-bottom: 80px; /* Espace pour le footer */
+}
+
+/* Style pour le dernier restaurant */
+.restaurant-bord:last-child {
+    margin-bottom: 100px; /* Ajoute un espace supplémentaire en bas pour le dernier élément */
+}
+
+.restaurant-image{
+    border-radius: 10px;
+    margin-right: 5px;
+    height: max-content;
+    width: fit-content;
+}
+
+/* app/assets/css/styles.css */
+
+.restaurant-details {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.restaurant-details img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.restaurant-details h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.restaurant-details p {
+    font-size: 1.2em;
+    line-height: 1.6;
 }
