@@ -93,8 +93,9 @@ class Requete {
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         $cuisines_favorite = $this::get_cuisines_favorite($user['id']);
+        $restaurants_favoris = $this::get_restaurants_favorite($user['id']);
 
-        $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom'], $cuisines_favorite);
+        $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom'], $cuisines_favorite, $restaurants_favoris);
 
         return $user;
     }
@@ -184,8 +185,9 @@ class Requete {
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         $cuisines_favorite = $this::get_cuisines_favorite($user_id);
+        $restaurants_favoris = $this::get_restaurants_favorite($user_id);
 
-        $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom'], $cuisines_favorite);
+        $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom'], $cuisines_favorite, $restaurants_favoris);
 
         return $user;
     }
@@ -241,6 +243,28 @@ class Requete {
         $result = $stmt->fetch(PDO::FETCH_COLUMN, 0);
 
         return $result;
+    }
+
+    static public function get_restaurants_favorite($user_id) {
+        $pdo = Database::getConnection();
+        $liste_restaurants = [];
+        
+        $sql = "SELECT * FROM public.".'"Restaurants"'." WHERE restaurant_id IN (SELECT restaurant_id FROM public.".'"Restaurant_Favoris"'." WHERE user_id = :user_id)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmtCuisine = $pdo->prepare("SELECT name FROM public.".'"Restaurants_Cuisines"'." natural join public.".'"Cuisines"'." WHERE restaurant_id = :restaurant_id");
+        foreach ($result as $index => $restaurant) {
+            $stmtCuisine->bindValue(':restaurant_id', $restaurant['restaurant_id'], PDO::PARAM_INT);
+            $stmtCuisine->execute();
+            $cuisines = $stmtCuisine->fetchAll(PDO::FETCH_ASSOC);
+            $new_restaurant = new Restaurant($restaurant, $cuisines);
+            $liste_restaurants[$index] = $new_restaurant;
+        }
+
+        return $liste_restaurants;
     }
 
 
