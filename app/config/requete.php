@@ -92,8 +92,9 @@ class Requete {
         $stmt->bindValue(':password', $password, PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $cuisines_favorite = $this::get_cuisines_favorite($user['id']);
 
-        $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom']);
+        $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom'], $cuisines_favorite);
 
         return $user;
     }
@@ -155,7 +156,7 @@ class Requete {
         return $result;
     }
 
-    static public function get_reviews($restaurant_id) {
+    static public function get_reviews_restaurants($restaurant_id) {
         $pdo = Database::getConnection();
         $liste_reviews = [];
         
@@ -168,7 +169,7 @@ class Requete {
 
         foreach ($result as $index => $review) {
             $user = $this::get_user_by_id($review['user_id']);
-            $new_review = new Reviews($review['id'], $restaurant, $user, $review['rating'], $review['comment'], $review['date']);
+            $new_review = new Reviews($review['id'], $restaurant, $user, $review['rating'], $review['comment'], $review['created_at']);
             $liste_reviews[$index] = $new_review;
         }
 
@@ -182,12 +183,34 @@ class Requete {
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $cuisines_favorite = $this::get_cuisines_favorite($user_id);
 
-        $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom']);
+        $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom'], $cuisines_favorite);
 
         return $user;
     }
+    
+    static public function add_review($restaurant_id, $user_id, $rating, $comment) {
+        $pdo = Database::getConnection();
+        $sql = "INSERT INTO public.".'"Reviews"'." (restaurant_id, user_id, rating, comment) VALUES (:restaurant_id, :user_id, :rating, :comment)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':restaurant_id', $restaurant_id, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':rating', $rating, PDO::PARAM_INT);
+        $stmt->bindValue(':comment', $comment, PDO::PARAM_STR);
+        $stmt->execute();
+    }
 
+    static public function get_cuisines_favorite($user_id) {
+        $pdo = Database::getConnection();
+        $sql = "SELECT name FROM public.".'"Users_Cuisines"'." natural join public.".'"Cuisines"'." WHERE user_id = :user_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+        
+        return $result;
+    }
 
 
 }

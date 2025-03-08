@@ -8,14 +8,16 @@ class User {
     private $password;
     private $nom;
     private $prenom;
+    private $cuisines_favorites;
     // Ajoute d'autres propriétés et méthodes nécessaires
 
-    public function __construct($id, $prenom, $email, $password, $nom) {
+    public function __construct($id, $prenom, $email, $password, $nom, $cuisines_favorites = []) {
         $this->id = $id;
-        $this->pernom = $prenom;
+        $this->prenom = $prenom;
         $this->email = $email;
         $this->password = $password;
         $this->nom = $nom;
+        $this->cuisines_favorites = $cuisines_favorites;
     }
 
     // Getters et setters
