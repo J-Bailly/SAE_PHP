@@ -40,14 +40,16 @@ class Restaurant
     private ?string $osm_edit;
     private ?string $osm_id;
     private ?string $operator;
+    private array $cuisines;
 
     // Constructeur pour initialiser les propriétés
-    public function __construct($data = [])
+    public function __construct($data = [], $cuisines = [])
     {
         if (!is_array($data)) {
             throw new \InvalidArgumentException('Argument $data must be of type array.');
         }
 
+        $this->cuisines = $cuisines;
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->$key = $value;
@@ -227,5 +229,10 @@ class Restaurant
     public function getOperator()
     {
         return $this->operator;
+    }
+
+    public function getCuisines()
+    {
+        return $this->cuisines;
     }
 }
