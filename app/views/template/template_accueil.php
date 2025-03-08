@@ -1,5 +1,5 @@
 <?php
-session_start(); // Assure-toi que la session est démarrée pour accéder aux informations de l'utilisateur
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +37,7 @@ session_start(); // Assure-toi que la session est démarrée pour accéder aux i
                     <span>Bienvenue, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</span>
                     <a href="logout.php" class="boutonNavDroite">Déconnexion</a>
                 <?php else: // Si l'utilisateur n'est pas connecté ?>
-                    <a href="Signup.php" class="boutonNavDroite">Inscription</a>
+                    <a href="index.php?controller=inscription&action=register" class="boutonNavDroite">Inscription</a>
                     <a href="login.php" class="boutonNavDroite">Connexion</a>
                 <?php endif; ?>
             </div>
