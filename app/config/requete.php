@@ -144,7 +144,18 @@ class Requete {
         return $this::get_user($email, $password);
     }
 
-    
+    static public function get_note_restaurant($restaurant_id) {
+        $pdo = Database::getConnection();
+        $sql = "SELECT AVG(rating) FROM public.".'"Reviews"'." WHERE restaurant_id = :restaurant_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':restaurant_id', $restaurant_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_COLUMN, 0);
+
+        return $result;
+    }
+
+
 
 }
 
