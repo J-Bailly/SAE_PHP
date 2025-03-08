@@ -26,8 +26,11 @@ session_start(); // Assure-toi que la session est démarrée pour accéder aux i
             </div>
 
             <div class="nav-center">
-                <input type="search" name="search" placeholder="Rechercher un restaurant...">
+                <form method="GET" action="index.php">
+                    <input type="search" name="search" placeholder="Rechercher un restaurant...">
+                </form>
             </div>
+
 
             <div class="nav-right">
                 <?php if (isset($_SESSION['user_id'])): // Si l'utilisateur est connecté ?>
