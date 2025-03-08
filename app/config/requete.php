@@ -131,6 +131,21 @@ class Requete {
         return $liste_restaurants;
     }
 
+    static public function register_user($prenom, $nom, $email, $password) {
+        $pdo = Database::getConnection();
+        $sql = "INSERT INTO public.".'"Users"'." (prenom, nom, email, password_hash) VALUES (:prenom, :nom, :email, :password_hash)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':prenom', $prenom, PDO::PARAM_STR);
+        $stmt->bindValue(':nom', $nom, PDO::PARAM_STR);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->bindValue(':password_hash', password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $this::get_user($email, $password);
+    }
+
+    
+
 }
 
 
