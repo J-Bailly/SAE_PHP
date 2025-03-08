@@ -155,6 +155,39 @@ class Requete {
         return $result;
     }
 
+    static public function get_reviews($restaurant_id) {
+        $pdo = Database::getConnection();
+        $liste_reviews = [];
+        
+        $sql = "SELECT * FROM public.".'"Reviews"'." WHERE restaurant_id = :restaurant_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':restaurant_id', $restaurant_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $restaurant = $this::get_restaurant($restaurant_id);
+
+        foreach ($result as $index => $review) {
+            $user = $this::get_user_by_id($review['user_id']);
+            $new_review = new Reviews($review['id'], $restaurant, $user, $review['rating'], $review['comment'], $review['date']);
+            $liste_reviews[$index] = $new_review;
+        }
+
+        return $liste_reviews;
+    }
+
+    static public function get_user_by_id($user_id) {
+        $pdo = Database::getConnection();
+        $sql = "SELECT * FROM public.".'"Users"'." WHERE id = :user_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom']);
+
+        return $user;
+    }
+
 
 
 }
