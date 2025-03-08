@@ -83,6 +83,18 @@ class Requete {
         return $result;
     }
 
+    static public function get_user($email, $password) {
+        $pdo = Database::getConnection();
+        $sql = "SELECT * FROM public.".'"Users"'." WHERE email = :email AND password = :password";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->bindValue(':password', $password, PDO::PARAM_STR);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $user;
+    }
+
 }
 
 
