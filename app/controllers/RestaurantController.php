@@ -1,75 +1,65 @@
 <?php
-// app/controllers/RestaurantController.php
 
 namespace app\controllers;
 
 use app\services\jsonloader;
+use app\models\Restaurant;
+use app\config\requete;
 
 class RestaurantController {
     
     public function index() {
-        // Chemin vers les fichiers JSON
-        $jsonRestaurant = __DIR__ . '/../../app/data/restaurants_orleans.json';
         $jsonImage = __DIR__ . '/../../app/data/restaurant_images.json';
-    
-        // Charger les données JSON
-        $restaurants = jsonloader::load($jsonRestaurant);
         $images = jsonloader::load($jsonImage);
     
         $query = isset($_GET['search']) ? trim($_GET['search']) : '';
     
         if ($query !== '') {
-            $restaurants = array_filter($restaurants, function($restaurant) use ($query) {
-                return stripos($restaurant['name'], $query) !== false;
-            });
+            $restaurants = Requete::seacrh_restaurant($query);
         } else {
-            $restaurants = array_slice($restaurants, 0, 10);
+            $restaurants = Requete::get_restaurants();
         }
     
-        foreach ($restaurants as &$restaurant) {
+
+        foreach ($restaurants as $restaurant) {
+            $restaurantName = method_exists($restaurant, 'getName') ? $restaurant->getName() : $restaurant->name;
             foreach ($images as $image) {
-                if ($image['name'] == $restaurant['name']) {
-                    $restaurant['image_url'] = $image['image_url'];
+                if ($image['name'] === $restaurantName) {
+                    if (method_exists($restaurant, 'setImageUrl')) {
+                        $restaurant->setImageUrl($image['image_url']);
+                    } else {
+                        $restaurant->image_url = $image['image_url'];
+                    }
                     break;
                 }
             }
         }
     
-        // Passer les données à la vue
         require_once __DIR__ . '/../views/restaurants/restaurant_list.php';
     }    
 
     public function show($id) {
-        // Chemin vers le fichier JSON
-        $jsonRestaurant = __DIR__ . '/../../app/data/restaurants_orleans.json';
-        $jsonImage = __DIR__. '/../../app/data/restaurant_images.json';
-
-        // Charger les données JSON
-        $restaurants = jsonloader::load($jsonRestaurant);
+        $jsonImage = __DIR__ . '/../../app/data/restaurant_images.json';
         $images = jsonloader::load($jsonImage);
 
-        // Trouver le restaurant par son ID
-        $restaurant = null;
-        foreach ($restaurants as $r) {
-            if ($r['id'] == $id) {
-                $restaurant = $r;
-                break;
-            }
-        }
+        $restaurant = Requete::get_restaurant($id);
 
         if (!$restaurant) {
             die("Restaurant non trouvé");
         }
 
-        // Récupérer l'image du restaurant
+        $restaurantName = method_exists($restaurant, 'getName') ? $restaurant->getName() : $restaurant->name;
         foreach ($images as $image) {
-            if ($image['name'] == $restaurant['name']) {
-                $restaurant['image_url'] = $image['image_url'];
+            if ($image['name'] === $restaurantName) {
+                if (method_exists($restaurant, 'setImageUrl')) {
+                    $restaurant->setImageUrl($image['image_url']);
+                } else {
+                    $restaurant->image_url = $image['image_url'];
+                }
                 break;
             }
         }
 
-        // Passer les données à la vue
         require_once __DIR__ . '/../views/restaurants/restaurant_details.php';
     }
 }
