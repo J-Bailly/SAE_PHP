@@ -212,6 +212,37 @@ class Requete {
         return $result;
     }
 
+    static public function add_cuisine_favorite($user_id, $cuisine) {
+        $pdo = Database::getConnection();
+        $cuisine_id = $this::get_id_cuisine($cuisine);
+        $sql = "INSERT INTO public.".'"Cuisines_Favoris"'." (user_id, cuisine_id) VALUES (:user_id, :cuisine_id)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':cuisine_id', $cuisine_id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    static public function delete_cuisine_favorite($user_id, $cuisine) {
+        $pdo = Database::getConnection();
+        $cuisine_id = $this::get_id_cuisine($cuisine);
+        $sql = "DELETE FROM public.".'"Cuisines_Favoris"'." WHERE user_id = :user_id AND cuisine_id = :cuisine_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':cuisine_id', $cuisine_id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    static public function get_id_cuisine($cuisine) {
+        $pdo = Database::getConnection();
+        $sql = "SELECT cuisine_id FROM public.".'"Cuisines"'." WHERE name = :cuisine";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':cuisine', $cuisine, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_COLUMN, 0);
+
+        return $result;
+    }
+
 
 }
 
