@@ -4,6 +4,7 @@ namespace app\config;
 
 use app\config\Database;
 use app\models\Restaurant;
+use app\models\User;
 use PDO;
 use PDOException;
 
@@ -92,7 +93,20 @@ class Requete {
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom']);
+
         return $user;
+    }
+
+    static public function verify_password($email, $password) {
+        $pdo = Database::getConnection();
+        $sql = "SELECT password_hash FROM public.".'"Users"'." WHERE email = :email";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return password_verify($password, $result['password_hash']);
     }
 
 }

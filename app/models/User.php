@@ -4,15 +4,38 @@ namespace app\models;
 
 class User {
     private $id;
-    private $username;
     private $email;
+    private $password;
+    private $nom;
+    private $prenom;
     // Ajoute d'autres propriétés et méthodes nécessaires
 
-    public function __construct($id, $username, $email) {
+    public function __construct($id, $prenom, $email, $password, $nom) {
         $this->id = $id;
-        $this->username = $username;
+        $this->pernom = $prenom;
         $this->email = $email;
+        $this->password = $password;
+        $this->nom = $nom;
     }
 
     // Getters et setters
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getPrenom() {
+        return $this->prenom;
+    }
+
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function getNom() {
+        return $this->nom;
+    }
 }
