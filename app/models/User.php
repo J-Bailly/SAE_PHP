@@ -2,43 +2,50 @@
 
 namespace app\models;
 
+use app\config\Database;
+use PDO;
+
 class User {
     private $id;
     private $email;
     private $password;
     private $nom;
     private $prenom;
-    private $cuisines_favorites;
-    private $restaurants_favoris;
 
-    public function __construct($id, $prenom, $email, $password, $nom, $cuisines_favorites = [], $restaurants_favoris = []) {
+    public function __construct($id, $prenom, $email, $password, $nom) {
         $this->id = $id;
         $this->prenom = $prenom;
         $this->email = $email;
         $this->password = $password;
         $this->nom = $nom;
-        $this->cuisines_favorites = $cuisines_favorites;
-        $this->restaurants_favoris = $restaurants_favoris;
     }
 
-    // Getters et setters
-    public function getId() {
-        return $this->id;
-    }
+    // Getters
+    public function getId() { return $this->id; }
+    public function getPrenom() { return $this->prenom; }
+    public function getEmail() { return $this->email; }
+    public function getPassword() { return $this->password; }
+    public function getNom() { return $this->nom; }
 
-    public function getPrenom() {
-        return $this->prenom;
-    }
+    /**
+     * Sauvegarde l'utilisateur dans la table Utilisateur.
+     *
+     * @return bool
+     */
+    public function save(): bool {
+        $pdo = Database::getConnection();
+        $sql = 'INSERT INTO "Utilisateur" (email, password_hash, nom, prenom)
+                VALUES (:email, :password_hash, :nom, :prenom)';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':email', $this->email);
+        $stmt->bindValue(':password_hash', $this->password);
+        $stmt->bindValue(':nom', $this->nom);
+        $stmt->bindValue(':prenom', $this->prenom);
 
-    public function getEmail() {
-        return $this->email;
-    }
-
-    public function getPassword() {
-        return $this->password;
-    }
-
-    public function getNom() {
-        return $this->nom;
+        $result = $stmt->execute();
+        if ($result) {
+            $this->id = $pdo->lastInsertId();
+        }
+        return $result;
     }
 }
