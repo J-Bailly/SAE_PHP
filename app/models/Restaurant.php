@@ -1,24 +1,18 @@
 <?php
 
-namespace App\Models;
+namespace app\controllers;
 
-class Restaurant {
-    private $id;
-    private $name;
-    private $cuisineType;
-    // Ajoute d'autres propriétés et méthodes nécessaires
+use app\services\JsonLoader; // Importer JsonLoader
 
-    public function __construct($id, $name, $cuisineType) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->cuisineType = $cuisineType;
-    }
+class RestaurantController {
+    public function index() {
+        // Chemin vers le fichier JSON
+        $jsonFilePath = __DIR__ . '/../../app/data/restaurants_orleans.json';
 
-    public function getName(){
-        return $this->name;
-    } 
+        // Charger les données JSON
+        $restaurants = JsonLoader::load($jsonFilePath);
 
-    public function getCuisineType(){
-        return $this->cuisineType;
+        // Passer les données à la vue
+        require_once __DIR__ . '/../views/restaurants/restaurant_list.php';
     }
 }

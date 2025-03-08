@@ -1,23 +1,28 @@
 <?php
 
-namespace App\Controllers;
+namespace app\controllers;
 
-use App\Models\Restaurant;
-use App\Config\Database;
+use app\services\jsonloader;
 
 class RestaurantController {
-    private $db;
-
-    public function __construct() {
-        $database = new Database();
-        $this->db = $database->getConnection();
-    }
-
     public function index() {
-        // Logique pour afficher la liste des restaurants
-    }
+        // Chemin vers le fichier JSON
+        $jsonFilePath = __DIR__ . '/../../app/data/restaurants_orleans.json';
 
-    public function show($id) {
-        // Logique pour afficher un restaurant spécifique
+        // Charger les données JSON
+        $restaurants = jsonloader::load($jsonFilePath);
+
+        // Limiter le nombre de restaurants à afficher (par exemple, 10)
+        $restaurants = array_slice($restaurants, 0, 10);
+
+        // Récupérer l'adresse pour chaque restaurant
+        foreach ($restaurants as &$restaurant) {
+            $lat = $restaurant['geo_point_2d']['lat'];
+            $lon = $restaurant['geo_point_2d']['lon'];
+            $restaurant['address'] = jsonloader::getAddressFromCoordinates($lat, $lon);
+        }
+
+        // Passer les données à la vue
+        require_once __DIR__ . '/../views/restaurants/restaurant_list.php';
     }
 }

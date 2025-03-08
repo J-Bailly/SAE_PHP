@@ -108,3 +108,17 @@ nav {
     color: #EEEDFF;
     text-align: center;
 }
+
+.restaurant-bord{
+    background-color: #284E7B;
+    margin: 15px;
+    padding: 5px;
+    border-radius: 15px;
+    text-align: center;
+    width: 50%;
+}
+
+.restaurant-interieur{
+    background-color: #B6CDE8;
+
+}
