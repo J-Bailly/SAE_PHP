@@ -1,5 +1,4 @@
 <?php
-
 namespace app\config;
 
 use app\config\Database;
@@ -7,6 +6,8 @@ use app\models\Restaurant;
 use app\models\User;
 use PDO;
 use PDOException;
+
+require_once __DIR__ . '/../models/Restaurant.php';
 
 class Requete {
 
@@ -33,8 +34,6 @@ class Requete {
     }
 
     
-
-
     static public function get_restaurant($restaurant_id) {
         $pdo = Database::getConnection();
         $sql = "SELECT * FROM public.".'"Restaurants"'." WHERE restaurant_id = :restaurant_id";
@@ -213,16 +212,20 @@ class Requete {
         $stmt->bindValue(':restaurant_id', $restaurant_id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $restaurant = $this::get_restaurant($restaurant_id);
-
+    
+        // Utilisation de self:: pour appeler une méthode statique
+        $restaurant = self::get_restaurant($restaurant_id);  // Correction ici
+    
         foreach ($result as $index => $review) {
-            $user = $this::get_user_by_id($review['user_id']);
+            // Utilisation de self:: pour appeler une méthode statique
+            $user = self::get_user_by_id($review['user_id']);  // Correction ici
             $new_review = new Reviews($review['id'], $restaurant, $user, $review['rating'], $review['comment'], $review['created_at']);
             $liste_reviews[$index] = $new_review;
         }
-
+    
         return $liste_reviews;
     }
+    
 
     static public function get_user_by_id($user_id) {
         $pdo = Database::getConnection();
@@ -337,12 +340,29 @@ class Requete {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0'); // Certains services exigent un User-Agent
         $response = curl_exec($ch);
+        
+        // Vérifier les erreurs de cURL
+        if(curl_errno($ch)) {
+            echo 'Erreur cURL: ' . curl_error($ch);
+        }
+        
         curl_close($ch);
     
+        // Vérifier si la réponse est valide
+        if (empty($response)) {
+            return "Erreur lors de la récupération de l'adresse.";
+        }
+    
         $data = json_decode($response, true);
-        
+    
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return 'Erreur de décodage JSON: ' . json_last_error_msg();
+        }
+    
+        // Retourner l'adresse ou un message d'erreur
         return $data['display_name'] ?? "Adresse non trouvée";
     }
+    
     
 
 

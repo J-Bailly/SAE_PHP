@@ -142,13 +142,17 @@ button {
     right: -40px; /* Déplacer le bouton suivant à droite des cartes */
 }
 
-.footer {
-    background: #284E7B;
-    padding: 15px 20px;
-    position: fixed;
+
+footer {
+    background-color: #284E7B;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
     width: 100%;
+    position: fixed;    /* Fixe le footer en bas de l'écran */
+    bottom: 0;          /* Le place en bas de la page */
     left: 0;
-    bottom: 0;
+    z-index: 1000;      /* S'assure qu'il reste au-dessus des autres éléments */
 }
 
 .footer p {
@@ -181,7 +185,7 @@ button {
 /* Assure que le contenu principal prend tout l'espace disponible */
 .main-content {
     flex: 1;
-    padding-bottom: 80px; /* Espace pour le footer */
+    padding-bottom: 120px; /* Ajuste l'espace pour laisser plus de place pour le footer */
 }
 
 /* Style pour le dernier restaurant */
