@@ -186,7 +186,8 @@ footer {
 /* Assure que le contenu principal prend tout l'espace disponible */
 .main-content {
     flex: 1;
-    padding-bottom: 120px; /* Ajuste l'espace pour laisser plus de place pour le footer */
+    padding-bottom: 120px;
+    margin-bottom: 50px;/* Ajuste l'espace pour laisser plus de place pour le footer */
 }
 
 /* Style pour le dernier restaurant */

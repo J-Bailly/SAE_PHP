@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("../template/template.php");
 require_once __DIR__ . '/../../config/Database.php';
 require_once __DIR__ . '/../../config/requete.php';
@@ -17,16 +18,13 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $restaurant_id = intval($_GET['id']);
 
 try {
-    // Récupérer les informations du restaurant depuis la base de données
     $restaurant = Requete::get_restaurant($restaurant_id);
 
-    // Vérifier si le restaurant existe
     if (!$restaurant) {
         http_response_code(404);
         die("❌ Restaurant non trouvé.");
     }
 
-    // Vérifier la présence des coordonnées
     $lat = $restaurant->getLatitude() ?? null;
     $lon = $restaurant->getLongitude() ?? null;
 
@@ -35,27 +33,15 @@ try {
         die("❌ Latitude ou longitude non disponibles.");
     }
 
-    // Si l'adresse est vide, on la récupère avec jsonloader
     if (empty($restaurant->getAddress())) {
         $restaurant->setAddress(jsonloader::getAddressFromCoordinates($lat, $lon) ?? "Adresse inconnue");
     }
 
-    // Charger les images depuis le JSON externe
     $jsonFilePath = __DIR__ . '/../../data/restaurant_images.json';
-    $restaurantImages = [];
-
-    if (file_exists($jsonFilePath)) {
-        $jsonData = file_get_contents($jsonFilePath);
-        $restaurantImages = json_decode($jsonData, true) ?: [];
-    }
-
-
     $imageUrl = null;
 
     if (file_exists($jsonFilePath)) {
-        $jsonData = file_get_contents($jsonFilePath);
-        $restaurantImages = json_decode($jsonData, true) ?: [];
-
+        $restaurantImages = json_decode(file_get_contents($jsonFilePath), true) ?: [];
         foreach ($restaurantImages as $entry) {
             if ($entry['name'] === $restaurant->getName()) {
                 $imageUrl = $entry['image_url'];
@@ -64,8 +50,7 @@ try {
         }
     }
 
-    $reviews = Requete::get_reviews_restaurants($restaurant_id);  
-
+    $reviews = Requete::get_reviews_restaurants($restaurant_id);
 } catch (PDOException $e) {
     http_response_code(500);
     die("❌ ERREUR : " . htmlspecialchars($e->getMessage()));
@@ -77,77 +62,80 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($restaurant->getName()); ?></title>
+    <title><?= htmlspecialchars($restaurant->getName()) ?></title>
     <link rel="stylesheet" href="../../assets/css/details.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
 </head>
 <body>
-
     <div class="container">
-        <h1><?php echo htmlspecialchars($restaurant->getName()); ?></h1>
+        <h1><?= htmlspecialchars($restaurant->getName()) ?></h1>
         
-        <?php if (!empty($imageUrl) && is_string($imageUrl)) : ?>
-            <img class='restaurant-image' src="<?php echo htmlspecialchars($imageUrl); ?>" alt="<?php echo htmlspecialchars($restaurant->getName()); ?>">
+        <?php if (!empty($imageUrl)) : ?>
+            <img class='restaurant-image' src="<?= htmlspecialchars($imageUrl) ?>" alt="<?= htmlspecialchars($restaurant->getName()) ?>">
         <?php endif; ?>
 
-        <p class="address">📍 Adresse : <?php echo htmlspecialchars($restaurant->getAddress()); ?></p>
+        <p class="address">📍 Adresse : <?= htmlspecialchars($restaurant->getAddress()) ?></p>
 
-        <?php if (!empty($restaurant->cuisines)) : ?>
-            <p class="cuisine">🍽 Type de cuisine : 
-                <?php echo htmlspecialchars(implode(', ', array_column($restaurant->cuisines, 'name'))); ?>
-            </p>
-        <?php endif; ?>
+        
+        <p class="cuisine">🍽 Type de cuisine : <?= htmlspecialchars($restaurant->getType()) ?></p>
+        
 
         <?php if (!empty($restaurant->getPhone())) : ?>
-            <p class="phone">📞 Téléphone : <a href="tel:<?php echo htmlspecialchars($restaurant->getPhone()); ?>">
-                <?php echo htmlspecialchars($restaurant->getPhone()); ?>
-            </a></p>
+            <p class="phone">📞 Téléphone : <a href="tel:<?= htmlspecialchars($restaurant->getPhone()) ?>"> <?= htmlspecialchars($restaurant->getPhone()) ?></a></p>
         <?php endif; ?>
 
-        <p class="takeaway">🥡 À emporter : 
-            <?php echo ($restaurant->hasTakeaway()) ? 'Oui' : 'Non'; ?>
-        </p>
+        <p class="takeaway">🥡 À emporter : <?= $restaurant->hasTakeaway() ? 'Oui' : 'Non' ?></p>
 
+        
+
+        <?php if (isset($_SESSION['user_id'])): ?>
+          <h2>Avis des clients</h2>
+          <?php if (!empty($reviews)): ?>
+              <?php foreach ($reviews as $review): ?>
+                  <div class="review">
+                      <strong><?= htmlspecialchars($review->getUser()->getPrenom()) ?> :</strong>
+                      <span>Note : <?= $review->getRating() ?>/5</span>
+                      <p><?= htmlspecialchars($review->getComment()) ?></p>
+                      <small>Posté le <?= $review->getCreatedAt() ?></small>
+                  </div>
+              <?php endforeach; ?>
+          <?php else: ?>
+              <p>Aucun avis pour ce restaurant.</p>
+          <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <h2>Laissez un avis</h2>
+            <form action="index.php?controller=restaurant&action=addReview" method="POST">
+                <input type="hidden" name="restaurant_id" value="<?= htmlspecialchars($restaurant->getRestaurantId()) ?>">
+                <label for="rating">Note :</label>
+                <select name="rating" id="rating" required>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Très bon</option>
+                    <option value="3">3 - Moyen</option>
+                    <option value="2">2 - Mauvais</option>
+                    <option value="1">1 - Horrible</option>
+                </select>
+                <label for="comment">Votre avis :</label>
+                <textarea name="comment" id="comment" required></textarea>
+                <button type="submit">Envoyer</button>
+            </form>
+        <?php else: ?>
+            <p><a href="../../../index.php?controller=connexion&action=login">Connectez-vous</a> pour laisser un avis.</p>
+        <?php endif; ?>
 
         <div id="map"></div>
-
-        <div class="reviews">
-            <h2>📝 Avis :</h2>
-            <?php if (!empty($reviews)) : ?>
-                <ul>
-                    <?php foreach ($reviews as $review) : ?>
-                        <li>
-                            <strong><?php echo htmlspecialchars($review['user_name']); ?></strong> (Note: <?php echo htmlspecialchars($review['rating']); ?>/5)<br>
-                            <p><?php echo htmlspecialchars($review['comment']); ?></p>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php else : ?>
-                <p>Aucun avis pour ce restaurant pour le moment.</p>
-            <?php endif; ?>
-        </div>
     </div>
-
-    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-        var map = L.map('map', {
-            zoomControl: false // Désactive le contrôle de zoom par défaut
-        }).setView([<?php echo $lat; ?>, <?php echo $lon; ?>], 15); // Positionner la carte avec la latitude et longitude du restaurant
-        
-        // Définir les tuiles de la carte (OpenStreetMap) sans attribution
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '' // Supprimer l'attribution
-        }).addTo(map);
-        
-        // Ajouter un marqueur avec une popup sur les coordonnées du restaurant
-        L.marker([<?php echo $lat; ?>, <?php echo $lon; ?>]).addTo(map)
-            .bindPopup('<b><?php echo htmlspecialchars($restaurant->getName()); ?></b><br><?php echo htmlspecialchars($restaurant->getAddress()); ?>')
-            .openPopup();
-    });
+            var map = L.map('map').setView([<?= $lat ?>, <?= $lon ?>], 15);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '' }).addTo(map);
+            L.marker([<?= $lat ?>, <?= $lon ?>]).addTo(map)
+                .bindPopup('<b><?= htmlspecialchars($restaurant->getName()) ?></b><br><?= htmlspecialchars($restaurant->getAddress()) ?>')
+                .openPopup();
+        });
     </script>
-
 </body>
 </html>

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\services\jsonloader;
 use app\models\Restaurant;
+use app\models\Reviews;
 use app\config\requete;
 
 class RestaurantController {
@@ -65,5 +66,29 @@ class RestaurantController {
         }
 
         require_once __DIR__ . '/../views/restaurants/restaurant_details.php';
+    }
+
+    public function addReview() {
+        session_start();
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?controller=connexion&action=login");
+            exit;
+        }
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['restaurant_id'], $_POST['rating'], $_POST['comment'])) {
+            $restaurant_id = intval($_POST['restaurant_id']);
+            $user_id = $_SESSION['user_id'];
+            $rating = intval($_POST['rating']);
+            $comment = trim($_POST['comment']);
+    
+            if ($rating < 1 || $rating > 5 || empty($comment)) {
+                die("Données invalides.");
+            }
+    
+            Reviews::add($restaurant_id, $user_id, $rating, $comment);
+    
+            header("Location: index.php?controller=restaurant&action=show&id=" . $restaurant_id);
+            exit;
+        }
     }
 }
