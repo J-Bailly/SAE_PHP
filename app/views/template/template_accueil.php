@@ -33,7 +33,6 @@ session_start();
                 </form>
             </div>
 
-
             <div class="nav-right">
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <span>Bienvenue, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</span>

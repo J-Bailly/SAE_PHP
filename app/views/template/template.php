@@ -1,5 +1,5 @@
 <?php
-session_start(); // Assure-toi que la session est démarrée pour accéder aux informations de l'utilisateur
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -14,11 +14,13 @@ session_start(); // Assure-toi que la session est démarrée pour accéder aux i
 </head>
 
 <body>
-<header>
+    <header>
         <nav>
             <div class="nav-left">
-                <img src="../../assets/images/flavorya.png" alt="Flavorya Logo" class="logo">
-                <a href="#" class="boutonNavGauche">Accueil</a>
+                <a href="../../../index.php">
+                    <img src="../../assets/images/flavorya.png" alt="Flavorya Logo" class="logo">
+                </a>
+                <a href="../../../index.php" class="boutonNavGauche">Accueil</a>
                 <?php if (isset($_SESSION['user_id'])): // Si l'utilisateur est connecté ?>
                     <a href="#" class="boutonNavGauche">Mes Avis</a>
                     <a href="#" class="boutonNavGauche">Favoris</a>
@@ -26,20 +28,23 @@ session_start(); // Assure-toi que la session est démarrée pour accéder aux i
             </div>
 
             <div class="nav-center">
-                <input type="search" name="search" placeholder="Rechercher un restaurant...">
+                <form method="GET" action="../../../index.php">
+                    <input type="search" name="search" placeholder="Rechercher un restaurant...">
+                </form>
             </div>
 
             <div class="nav-right">
-                <?php if (isset($_SESSION['user_id'])): // Si l'utilisateur est connecté ?>
+                <?php if (isset($_SESSION['user_id'])): ?>
                     <span>Bienvenue, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</span>
-                    <a href="logout.php" class="boutonNavDroite">Déconnexion</a>
+                    <a href="../../../index.php?controller=connexion&action=logout" class="boutonNavDroite">Déconnexion</a>
                 <?php else: // Si l'utilisateur n'est pas connecté ?>
-                    <a href="Signup.php" class="boutonNavDroite">Inscription</a>
-                    <a href="login.php" class="boutonNavDroite">Connexion</a>
+                    <a href="../../../index.php?controller=inscription&action=register" class="boutonNavDroite">Inscription</a>
+                    <a href="../../../index.php?controller=connexion&action=login" class="boutonNavDroite">Connexion</a>
                 <?php endif; ?>
             </div>
         </nav>
     </header>
+
     <footer class="footer">
         <p>&copy; 2025 | Tous droits réservés | Contactez-nous pour plus d'informations.</p>
     </footer>
