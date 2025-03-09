@@ -48,4 +48,37 @@ class User {
         }
         return $result;
     }
+
+    /**
+     * Récupère un utilisateur par son email.
+     *
+     * @param string $email
+     * @return User|null
+     */
+    public static function findByEmail(string $email): ?User {
+        $pdo = Database::getConnection();
+
+        $sql = 'SELECT user_id, nom, email, password_hash, prenom
+                FROM "Utilisateur"
+                WHERE email = :email
+                LIMIT 1';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':email', $email);
+        $stmt->execute();
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($data) {
+            // On retourne une instance de User
+            return new User(
+                $data['user_id'],
+                $data['prenom'],
+                $data['email'],
+                $data['password_hash'],
+                $data['nom']
+            );
+        } else {
+            return null;
+        }
+    }
 }

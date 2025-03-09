@@ -33,12 +33,12 @@ session_start();
 
 
             <div class="nav-right">
-                <?php if (isset($_SESSION['user_id'])): // Si l'utilisateur est connecté ?>
+                <?php if (isset($_SESSION['user_id'])):?>
                     <span>Bienvenue, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</span>
-                    <a href="logout.php" class="boutonNavDroite">Déconnexion</a>
+                    <a href="index.php?controller=connexion&action=logout" class="boutonNavDroite">Déconnexion</a>
                 <?php else: // Si l'utilisateur n'est pas connecté ?>
                     <a href="index.php?controller=inscription&action=register" class="boutonNavDroite">Inscription</a>
-                    <a href="login.php" class="boutonNavDroite">Connexion</a>
+                    <a href="index.php?controller=connexion&action=login" class="boutonNavDroite">Connexion</a>
                 <?php endif; ?>
             </div>
         </nav>
