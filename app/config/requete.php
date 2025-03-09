@@ -87,7 +87,7 @@ class Requete {
 
     static public function get_user($email, $password) {
         $pdo = Database::getConnection();
-        $sql = "SELECT * FROM public.".'"Users"'." WHERE email = :email AND password = :password";
+        $sql = "SELECT * FROM public.".'"Utilisateur"'." WHERE email = :email AND password = :password";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->bindValue(':password', $password, PDO::PARAM_STR);
@@ -103,7 +103,7 @@ class Requete {
 
     static public function verify_password($email, $password) {
         $pdo = Database::getConnection();
-        $sql = "SELECT password_hash FROM public.".'"Users"'." WHERE email = :email";
+        $sql = "SELECT password_hash FROM public.".'"Utilisateur"'." WHERE email = :email";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
@@ -181,7 +181,7 @@ class Requete {
 
     static public function register_user($prenom, $nom, $email, $password) {
         $pdo = Database::getConnection();
-        $sql = "INSERT INTO public.".'"Users"'." (prenom, nom, email, password_hash) VALUES (:prenom, :nom, :email, :password_hash)";
+        $sql = "INSERT INTO public.".'"Utilisateur"'." (prenom, nom, email, password_hash) VALUES (:prenom, :nom, :email, :password_hash)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':prenom', $prenom, PDO::PARAM_STR);
         $stmt->bindValue(':nom', $nom, PDO::PARAM_STR);
@@ -229,7 +229,7 @@ class Requete {
 
     static public function get_user_by_id($user_id) {
         $pdo = Database::getConnection();
-        $sql = "SELECT * FROM public.".'"Users"'." WHERE id = :user_id";
+        $sql = "SELECT * FROM public.".'"Utilisateur"'." WHERE id = :user_id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
