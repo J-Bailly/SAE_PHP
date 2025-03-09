@@ -93,8 +93,8 @@ class Requete {
         $stmt->bindValue(':password', $password, PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        $cuisines_favorite = $this::get_cuisines_favorite($user['id']);
-        $restaurants_favoris = $this::get_restaurants_favorite($user['id']);
+        $cuisines_favorite = Requete::get_cuisines_favorite($user['id']);
+        $restaurants_favoris = Requete::get_restaurants_favorite($user['id']);
 
         $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom'], $cuisines_favorite, $restaurants_favoris);
 
@@ -189,7 +189,7 @@ class Requete {
         $stmt->bindValue(':password_hash', password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR);
         $stmt->execute();
 
-        return $this::get_user($email, $password);
+        return Requete::get_user($email, $password);
     }
 
     static public function get_note_restaurant($restaurant_id) {
@@ -266,7 +266,7 @@ class Requete {
 
     static public function add_cuisine_favorite($user_id, $cuisine) {
         $pdo = Database::getConnection();
-        $cuisine_id = $this::get_id_cuisine($cuisine);
+        $cuisine_id = Requete::get_id_cuisine($cuisine);
         $sql = "INSERT INTO public.".'"Cuisines_Favoris"'." (user_id, cuisine_id) VALUES (:user_id, :cuisine_id)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -276,7 +276,7 @@ class Requete {
 
     static public function delete_cuisine_favorite($user_id, $cuisine) {
         $pdo = Database::getConnection();
-        $cuisine_id = $this::get_id_cuisine($cuisine);
+        $cuisine_id = Requete::get_id_cuisine($cuisine);
         $sql = "DELETE FROM public.".'"Cuisines_Favoris"'." WHERE user_id = :user_id AND cuisine_id = :cuisine_id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
