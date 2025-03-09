@@ -332,8 +332,18 @@ class Requete {
         $stmt->execute();
     }
 
+    static public function update_review($review) {
+        $pdo = Database::getConnection();
+        $sql = "UPDATE public.".'"Reviews"'." SET rating = :rating, comment = :comment WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':rating', $review->getRating(), PDO::PARAM_INT);
+        $stmt->bindValue(':comment', $review->getComment(), PDO::PARAM_STR);
+        $stmt->bindValue(':id', $review->getId(), PDO::PARAM_INT);
+        $stmt->execute();
+    }
 
-    
+
+
 
 
 }
