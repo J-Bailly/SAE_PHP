@@ -255,7 +255,7 @@ class Requete {
 
     static public function get_cuisines_favorite($user_id) {
         $pdo = Database::getConnection();
-        $sql = "SELECT name FROM public.".'"Users_Cuisines"'." natural join public.".'"Cuisines"'." WHERE user_id = :user_id";
+        $sql = "SELECT name FROM public.".'"Cuisines_Favoris"'." natural join public.".'"Cuisines"'." WHERE user_id = :user_id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
