@@ -12,17 +12,19 @@ class RestaurantController {
         $jsonImage = __DIR__ . '/../../app/data/restaurant_images.json';
         $images = jsonloader::load($jsonImage);
     
-        $query = isset($_GET['search']) ? trim($_GET['search']) : '';
+        $input = isset($_GET['search']) ? trim($_GET['search']) : '';
     
-        if ($query !== '') {
-            $restaurants = Requete::seacrh_restaurant($query);
+        if ($input !== '') {
+            $restaurants = Requete::search_restaurant_unified($input);
         } else {
             $restaurants = Requete::get_restaurants();
         }
     
-
         foreach ($restaurants as $restaurant) {
-            $restaurantName = method_exists($restaurant, 'getName') ? $restaurant->getName() : $restaurant->name;
+            $restaurantName = method_exists($restaurant, 'getName')
+                ? $restaurant->getName()
+                : $restaurant->name;
+    
             foreach ($images as $image) {
                 if ($image['name'] === $restaurantName) {
                     if (method_exists($restaurant, 'setImageUrl')) {
@@ -37,6 +39,8 @@ class RestaurantController {
     
         require_once __DIR__ . '/../views/restaurants/restaurant_list.php';
     }    
+    
+    
 
     public function show($id) {
         $jsonImage = __DIR__ . '/../../app/data/restaurant_images.json';

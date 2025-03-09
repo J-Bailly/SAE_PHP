@@ -28,8 +28,9 @@ session_start();
             </div>
 
             <div class="nav-center">
-                <form method="GET" action="index.php">
-                    <input type="search" name="search" placeholder="Rechercher un restaurant...">
+                <form action="index.php" method="GET">
+                    <input type="search" name="search" placeholder="KFC, fast_food, bar, McDO..." />
+                    <button type="submit" style="display:none;"></button>
                 </form>
             </div>
 

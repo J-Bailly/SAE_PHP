@@ -134,6 +134,51 @@ class Requete {
 
         return $liste_restaurants;
     }
+ 
+    static public function search_restaurant_unified($input) {
+        $pdo = Database::getConnection();
+        $liste_restaurants = [];
+    
+        $tokens = explode(' ', $input);
+    
+        $sql = 'SELECT * FROM public."Restaurants"';
+        $groups = []; 
+    
+        foreach ($tokens as $index => $token) {
+            $groups[] = '(name ILIKE :token'.$index.' OR type ILIKE :token'.$index.')';
+        }
+    
+        if (!empty($groups)) {
+            $sql .= ' WHERE ' . implode(' OR ', $groups);
+        }
+    
+        $stmt = $pdo->prepare($sql);
+    
+        foreach ($tokens as $index => $token) {
+            $stmt->bindValue(':token'.$index, '%'.$token.'%', PDO::PARAM_STR);
+        }
+    
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        $stmtCuisine = $pdo->prepare("
+            SELECT name 
+            FROM public.\"Restaurants_Cuisines\"
+            NATURAL JOIN public.\"Cuisines\"
+            WHERE restaurant_id = :restaurant_id
+        ");
+    
+        foreach ($result as $index => $restaurant) {
+            $stmtCuisine->bindValue(':restaurant_id', $restaurant['restaurant_id'], PDO::PARAM_INT);
+            $stmtCuisine->execute();
+            $cuisines = $stmtCuisine->fetchAll(PDO::FETCH_ASSOC);
+    
+            $new_restaurant = new Restaurant($restaurant, $cuisines);
+            $liste_restaurants[$index] = $new_restaurant;
+        }
+    
+        return $liste_restaurants;
+    }
 
     static public function register_user($prenom, $nom, $email, $password) {
         $pdo = Database::getConnection();
