@@ -314,6 +314,27 @@ class Requete {
         return $liste_restaurants;
     }
 
+    static public function add_restaurant_favorite($user_id, $restaurant_id) {
+        $pdo = Database::getConnection();
+        $sql = "INSERT INTO public.".'"Restaurant_Favoris"'." (user_id, restaurant_id) VALUES (:user_id, :restaurant_id)";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':restaurant_id', $restaurant_id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+    static public function delete_restaurant_favorite($user_id, $restaurant_id) {
+        $pdo = Database::getConnection();
+        $sql = "DELETE FROM public.".'"Restaurant_Favoris"'." WHERE user_id = :user_id AND restaurant_id = :restaurant_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':restaurant_id', $restaurant_id, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
+
+    
+
 
 }
 
