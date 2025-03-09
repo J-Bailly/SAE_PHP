@@ -1,6 +1,9 @@
-<?php 
+<?php
 session_start();
+
+use app\controllers\RestaurantController;
 require_once "app/autoload.php";
+require_once("app/views/template/template_accueil.php");
 
 if (isset($_GET['controller']) && isset($_GET['action'])) {
     $controllerName = ucfirst($_GET['controller']) . 'Controller';
@@ -15,14 +18,9 @@ if (isset($_GET['controller']) && isset($_GET['action'])) {
         }
     }
 }
-
-use app\controllers\RestaurantController;
-require_once("app/views/template/template_accueil.php");
-
 $requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $controller = new RestaurantController();
 
-// Gestion des routes
 if ($requestPath == '/' || $requestPath == '/index.php') {
     $controller->index();
 } elseif (preg_match('/\/restaurant\/(\d+)/', $requestPath, $matches)) {
@@ -31,4 +29,3 @@ if ($requestPath == '/' || $requestPath == '/index.php') {
     http_response_code(404);
     echo "Page non trouvée";
 }
-?>
