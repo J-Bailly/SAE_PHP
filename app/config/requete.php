@@ -342,6 +342,13 @@ class Requete {
         $stmt->execute();
     }
 
+    static public function delete_review($review) {
+        $pdo = Database::getConnection();
+        $sql = "DELETE FROM public.".'"Reviews"'." WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $review->getId(), PDO::PARAM_INT);
+        $stmt->execute();
+    }
 
 
 
