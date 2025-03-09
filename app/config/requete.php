@@ -234,8 +234,8 @@ class Requete {
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        $cuisines_favorite = $this::get_cuisines_favorite($user_id);
-        $restaurants_favoris = $this::get_restaurants_favorite($user_id);
+        $cuisines_favorite = Requete::get_cuisines_favorite($user_id);
+        $restaurants_favoris = Requete::get_restaurants_favorite($user_id);
 
         $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom'], $cuisines_favorite, $restaurants_favoris);
 
