@@ -44,4 +44,13 @@ class Reviews {
         return $this->date;
     }
 
+    public function setRating($rating) {
+        $this->rating = $rating;
+    }
+
+    public function setComment($comment) {
+        $this->comment = $comment;
+    }
+    
+
 }

@@ -162,7 +162,7 @@ footer {
 
 .restaurant-bord {
     background-color: #284E7B;
-    margin: 10px;
+    margin: 10px auto;
     padding: 5px;
     border-radius: 15px;
     text-align: center;
@@ -170,6 +170,7 @@ footer {
     display: flex;
     text-decoration: none;
     color: inherit;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .restaurant-interieur {
