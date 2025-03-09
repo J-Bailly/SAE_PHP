@@ -17,8 +17,10 @@ session_start();
     <header>
         <nav>
             <div class="nav-left">
-                <img src="app/assets/images/flavorya.png" alt="Flavorya Logo" class="logo">
-                <a href="#" class="boutonNavGauche">Accueil</a>
+                <a href="index.php">
+                    <img src="app/assets/images/flavorya.png" alt="Flavorya Logo" class="logo">
+                </a>
+                <a href="index.php" class="boutonNavGauche">Accueil</a>
                 <?php if (isset($_SESSION['user_id'])): // Si l'utilisateur est connecté ?>
                     <a href="#" class="boutonNavGauche">Mes Avis</a>
                     <a href="#" class="boutonNavGauche">Favoris</a>
@@ -33,7 +35,7 @@ session_start();
 
 
             <div class="nav-right">
-                <?php if (isset($_SESSION['user_id'])):?>
+                <?php if (isset($_SESSION['user_id'])): ?>
                     <span>Bienvenue, <?php echo htmlspecialchars($_SESSION['user_name']); ?>!</span>
                     <a href="index.php?controller=connexion&action=logout" class="boutonNavDroite">Déconnexion</a>
                 <?php else: // Si l'utilisateur n'est pas connecté ?>
