@@ -29,7 +29,7 @@ session_start();
 
             <div class="nav-center">
                 <form action="index.php" method="GET">
-                    <input type="search" name="search" placeholder="KFC, fast_food, bar, McDO..." />
+                    <input type="search" name="search" placeholder="KFC fast_food bar McDO..." />
                     <button type="submit" style="display:none;"></button>
                 </form>
             </div>
