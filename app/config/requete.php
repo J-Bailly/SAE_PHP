@@ -229,7 +229,7 @@ class Requete {
 
     static public function get_user_by_id($user_id) {
         $pdo = Database::getConnection();
-        $sql = "SELECT * FROM public.".'"Utilisateur"'." WHERE id = :user_id";
+        $sql = "SELECT * FROM public.".'"Utilisateur"'." WHERE user_id = :user_id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
