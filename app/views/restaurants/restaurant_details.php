@@ -107,24 +107,25 @@
 
             <p class="takeaway">🥡 À emporter : <?= $restaurant->hasTakeaway() ? 'Oui' : 'Non' ?></p>
 
-            <div style="">
-                <?php if ($isFavorite): ?>
-                    <form action="/index.php?controller=restaurant&action=removeFavorite" method="POST">
-                        <input type="hidden" name="restaurant_id" value="<?= htmlspecialchars($restaurant->getRestaurantId()) ?>">
-                        <button type="submit" style="border: none; background: none; font-size: 24px; cursor: pointer;">
-                            Ajout Favoris :  ❤️
-                        </button>
-                    </form>
-                <?php else: ?>
-                    <form action="/index.php?controller=restaurant&action=addFavorite" method="POST">
-                        <input type="hidden" name="restaurant_id" value="<?= htmlspecialchars($restaurant->getRestaurantId()) ?>">
-                        <button type="submit" style="border: none; background: none; font-size: 24px; cursor: pointer;">
-                            Ajout Favoris : 🤍
-                        </button>
-                    </form>
-                <?php endif; ?>
-            </div>
-
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <div style="">
+                    <?php if ($isFavorite): ?>
+                        <form action="/index.php?controller=restaurant&action=removeFavorite" method="POST">
+                            <input type="hidden" name="restaurant_id" value="<?= htmlspecialchars($restaurant->getRestaurantId()) ?>">
+                            <button type="submit" style="border: none; background: none; font-size: 24px; cursor: pointer;">
+                                Ajout Favoris :  ❤️
+                            </button>
+                        </form>
+                    <?php else: ?>
+                        <form action="/index.php?controller=restaurant&action=addFavorite" method="POST">
+                            <input type="hidden" name="restaurant_id" value="<?= htmlspecialchars($restaurant->getRestaurantId()) ?>">
+                            <button type="submit" style="border: none; background: none; font-size: 24px; cursor: pointer;">
+                                Ajout Favoris : 🤍
+                            </button>
+                        </form>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
 
             <?php if (isset($_SESSION['user_id'])): ?>
             <h2>Avis des clients</h2>

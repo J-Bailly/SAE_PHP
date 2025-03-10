@@ -56,13 +56,6 @@ class User {
         return $result;
     }
     
-
-    /**
-     * Récupère un utilisateur par son email.
-     *
-     * @param string $email
-     * @return User|null
-     */
     public static function findByEmail(string $email): ?User {
         $pdo = Database::getConnection();
 
@@ -77,7 +70,6 @@ class User {
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($data) {
-            // On retourne une instance de User
             return new User(
                 $data['user_id'],
                 $data['prenom'],

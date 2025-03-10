@@ -180,7 +180,7 @@ footer {
     margin-left: 5px;
     flex-grow: 1;
     width: 180px;
-    height: max-content;
+    height: auto;
 }
 
 /* Assure que le contenu principal prend tout l'espace disponible */
