@@ -6,29 +6,29 @@ require_once 'app/autoload.php';
 use PHPUnit\Framework\TestCase;
 use app\models\User;
 
-
-
 class UserTest extends TestCase {
-    public function testGetAndSetUserId() {
-        $user = new User(1, 'username', 'email@example.com', 'password', 'role');
+    public function testGetUserId() {
+        $user = new User(1, 'prenom', 'email@example.com', 'password', 'nom');
         $this->assertEquals(1, $user->getId());
     }
 
-    public function testGetAndSetUsername() {
-        $user = new User(1, 'old_username', 'email@example.com', 'password', 'role');
-        $user->username = 'new_username';
-        $this->assertEquals('new_username', $user->username);
+    public function testGetPrenom() {
+        $user = new User(1, 'prenom', 'email@example.com', 'password', 'nom');
+        $this->assertEquals('prenom', $user->getPrenom());
     }
 
-    public function testGetAndSetEmail() {
-        $user = new User(1, 'username', 'old@example.com', 'password', 'role');
-        $user->setEmail('new@example.com');
-        $this->assertEquals('new@example.com', $user->getEmail());
+    public function testGetEmail() {
+        $user = new User(1, 'prenom', 'email@example.com', 'password', 'nom');
+        $this->assertEquals('email@example.com', $user->getEmail());
     }
 
-    public function testGetAndSetPassword() {
-        $user = new User(1, 'username', 'email@example.com', 'old_password', 'role');
-        $user->setPassword('new_password');
-        $this->assertEquals('new_password', $user->getPassword());
+    public function testGetPassword() {
+        $user = new User(1, 'prenom', 'email@example.com', 'password', 'nom');
+        $this->assertEquals('password', $user->getPassword());
+    }
+
+    public function testGetNom() {
+        $user = new User(1, 'prenom', 'email@example.com', 'password', 'nom');
+        $this->assertEquals('nom', $user->getNom());
     }
 }
