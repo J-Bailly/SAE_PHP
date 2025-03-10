@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /home/leo-saunier/BUT2/sae/S4/SAE-PHP/SAE_PHP/app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=12.0.4" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css?v=12.0.4" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=12.0.4" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/home/leo-saunier/BUT2/sae/S4/SAE-PHP/SAE_PHP/app</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="config/Database.php.html#8">app\config\Database</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#20">app\config\Requete</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/ConnexionController.php.html#6">app\controllers\ConnexionController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/InscriptionController.php.html#6">app\controllers\InscriptionController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/RestaurantController.php.html#11">app\controllers\RestaurantController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/jsonloader.php.html#5">app\services\jsonloader</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="models/User.php.html#8">app\models\User</a></td><td class="text-right">15%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="config/requete.php.html#20">app\config\Requete</a></td><td class="text-right">1722</td></tr>
+       <tr><td><a href="controllers/RestaurantController.php.html#11">app\controllers\RestaurantController</a></td><td class="text-right">1332</td></tr>
+       <tr><td><a href="models/User.php.html#8">app\models\User</a></td><td class="text-right">85</td></tr>
+       <tr><td><a href="controllers/ConnexionController.php.html#6">app\controllers\ConnexionController</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="controllers/InscriptionController.php.html#6">app\controllers\InscriptionController</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="services/jsonloader.php.html#5">app\services\jsonloader</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="config/Database.php.html#8">app\config\Database</a></td><td class="text-right">20</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="config/Database.php.html#16"><abbr title="app\config\Database::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/Database.php.html#26"><abbr title="app\config\Database::getConnection">getConnection</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#22"><abbr title="app\config\Requete::get_restaurants">get_restaurants</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#45"><abbr title="app\config\Requete::get_restaurant">get_restaurant</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#63"><abbr title="app\config\Requete::get_restaurants_by_cuisine">get_restaurants_by_cuisine</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#86"><abbr title="app\config\Requete::get_cuisines">get_cuisines</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#96"><abbr title="app\config\Requete::get_user">get_user</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#112"><abbr title="app\config\Requete::verify_password">verify_password</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#123"><abbr title="app\config\Requete::seacrh_restaurant">seacrh_restaurant</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#145"><abbr title="app\config\Requete::search_restaurant_unified">search_restaurant_unified</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#190"><abbr title="app\config\Requete::register_user">register_user</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#203"><abbr title="app\config\Requete::get_note_restaurant">get_note_restaurant</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#214"><abbr title="app\config\Requete::get_reviews_restaurants">get_reviews_restaurants</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#237"><abbr title="app\config\Requete::get_reviews_user">get_reviews_user</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#269"><abbr title="app\config\Requete::get_user_by_id">get_user_by_id</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#284"><abbr title="app\config\Requete::add_review">add_review</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#295"><abbr title="app\config\Requete::get_cuisines_favorite">get_cuisines_favorite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#306"><abbr title="app\config\Requete::add_cuisine_favorite">add_cuisine_favorite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#316"><abbr title="app\config\Requete::delete_cuisine_favorite">delete_cuisine_favorite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#326"><abbr title="app\config\Requete::get_id_cuisine">get_id_cuisine</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#337"><abbr title="app\config\Requete::get_restaurants_favorite">get_restaurants_favorite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#359"><abbr title="app\config\Requete::get_adresse">get_adresse</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#405"><abbr title="app\config\Requete::update_review">update_review</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#431"><abbr title="app\config\Requete::delete_review">delete_review</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#440"><abbr title="app\config\Requete::get_review_by_id">get_review_by_id</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#466"><abbr title="app\config\Requete::add_restaurant_favorite">add_restaurant_favorite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="config/requete.php.html#475"><abbr title="app\config\Requete::remove_restaurant_favorite">remove_restaurant_favorite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/ConnexionController.php.html#7"><abbr title="app\controllers\ConnexionController::login">login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/ConnexionController.php.html#46"><abbr title="app\controllers\ConnexionController::logout">logout</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/InscriptionController.php.html#7"><abbr title="app\controllers\InscriptionController::register">register</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/RestaurantController.php.html#13"><abbr title="app\controllers\RestaurantController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/RestaurantController.php.html#45"><abbr title="app\controllers\RestaurantController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/RestaurantController.php.html#69"><abbr title="app\controllers\RestaurantController::addReview">addReview</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/RestaurantController.php.html#95"><abbr title="app\controllers\RestaurantController::addFavorite">addFavorite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/RestaurantController.php.html#121"><abbr title="app\controllers\RestaurantController::removeFavorite">removeFavorite</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="models/User.php.html#25"><abbr title="app\models\User::getPrenom">getPrenom</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="models/User.php.html#26"><abbr title="app\models\User::getEmail">getEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="models/User.php.html#27"><abbr title="app\models\User::getPassword">getPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="models/User.php.html#28"><abbr title="app\models\User::getNom">getNom</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="models/User.php.html#35"><abbr title="app\models\User::save">save</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="models/User.php.html#66"><abbr title="app\models\User::findByEmail">findByEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/jsonloader.php.html#9"><abbr title="app\services\jsonloader::load">load</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="services/jsonloader.php.html#23"><abbr title="app\services\jsonloader::getAddressFromCoordinates">getAddressFromCoordinates</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="models/Restaurant.php.html#46"><abbr title="app\models\Restaurant::__construct">__construct</abbr></a></td><td class="text-right">83%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="controllers/RestaurantController.php.html#13"><abbr title="app\controllers\RestaurantController::index">index</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="controllers/RestaurantController.php.html#69"><abbr title="app\controllers\RestaurantController::addReview">addReview</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="controllers/ConnexionController.php.html#7"><abbr title="app\controllers\ConnexionController::login">login</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="controllers/InscriptionController.php.html#7"><abbr title="app\controllers\InscriptionController::register">register</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="controllers/RestaurantController.php.html#95"><abbr title="app\controllers\RestaurantController::addFavorite">addFavorite</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="controllers/RestaurantController.php.html#121"><abbr title="app\controllers\RestaurantController::removeFavorite">removeFavorite</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="controllers/RestaurantController.php.html#45"><abbr title="app\controllers\RestaurantController::show">show</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="config/requete.php.html#145"><abbr title="app\config\Requete::search_restaurant_unified">search_restaurant_unified</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="config/requete.php.html#359"><abbr title="app\config\Requete::get_adresse">get_adresse</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="models/User.php.html#35"><abbr title="app\models\User::save">save</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="services/jsonloader.php.html#23"><abbr title="app\services\jsonloader::getAddressFromCoordinates">getAddressFromCoordinates</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="config/Database.php.html#16"><abbr title="app\config\Database::__construct">__construct</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="config/Database.php.html#26"><abbr title="app\config\Database::getConnection">getConnection</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="config/requete.php.html#22"><abbr title="app\config\Requete::get_restaurants">get_restaurants</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="config/requete.php.html#63"><abbr title="app\config\Requete::get_restaurants_by_cuisine">get_restaurants_by_cuisine</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="config/requete.php.html#123"><abbr title="app\config\Requete::seacrh_restaurant">seacrh_restaurant</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="config/requete.php.html#214"><abbr title="app\config\Requete::get_reviews_restaurants">get_reviews_restaurants</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="config/requete.php.html#237"><abbr title="app\config\Requete::get_reviews_user">get_reviews_user</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="config/requete.php.html#337"><abbr title="app\config\Requete::get_restaurants_favorite">get_restaurants_favorite</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="config/requete.php.html#405"><abbr title="app\config\Requete::update_review">update_review</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="config/requete.php.html#440"><abbr title="app\config\Requete::get_review_by_id">get_review_by_id</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="models/User.php.html#66"><abbr title="app\models\User::findByEmail">findByEmail</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="services/jsonloader.php.html#9"><abbr title="app\services\jsonloader::load">load</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="models/Restaurant.php.html#46"><abbr title="app\models\Restaurant::__construct">__construct</abbr></a></td><td class="text-right">4</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 12.0.4</a> using <a href="https://www.php.net/" target="_top">PHP 8.3.6</a> and <a href="https://phpunit.de/">PHPUnit 12.0.7</a> at Mon Mar 10 21:02:51 UTC 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js?v=12.0.4" type="text/javascript"></script>
+  <script src="_js/d3.min.js?v=12.0.4" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js?v=12.0.4" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([6,0,1,0,0,0,0,0,0,0,1,1], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([43,0,0,0,0,0,0,0,0,1,0,46], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,4,"<a href=\"config\/Database.php.html#8\">app\\config\\Database<\/a>"],[0,41,"<a href=\"config\/requete.php.html#20\">app\\config\\Requete<\/a>"],[0,8,"<a href=\"controllers\/ConnexionController.php.html#6\">app\\controllers\\ConnexionController<\/a>"],[0,7,"<a href=\"controllers\/InscriptionController.php.html#6\">app\\controllers\\InscriptionController<\/a>"],[0,36,"<a href=\"controllers\/RestaurantController.php.html#11\">app\\controllers\\RestaurantController<\/a>"],[97.5609756097561,39,"<a href=\"models\/Restaurant.php.html#7\">app\\models\\Restaurant<\/a>"],[100,9,"<a href=\"models\/Reviews.php.html#4\">app\\models\\Reviews<\/a>"],[15,11,"<a href=\"models\/User.php.html#8\">app\\models\\User<\/a>"],[0,5,"<a href=\"services\/jsonloader.php.html#5\">app\\services\\jsonloader<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,2,"<a href=\"config\/Database.php.html#16\">app\\config\\Database::__construct<\/a>"],[0,2,"<a href=\"config\/Database.php.html#26\">app\\config\\Database::getConnection<\/a>"],[0,2,"<a href=\"config\/requete.php.html#22\">app\\config\\Requete::get_restaurants<\/a>"],[0,1,"<a href=\"config\/requete.php.html#45\">app\\config\\Requete::get_restaurant<\/a>"],[0,2,"<a href=\"config\/requete.php.html#63\">app\\config\\Requete::get_restaurants_by_cuisine<\/a>"],[0,1,"<a href=\"config\/requete.php.html#86\">app\\config\\Requete::get_cuisines<\/a>"],[0,1,"<a href=\"config\/requete.php.html#96\">app\\config\\Requete::get_user<\/a>"],[0,1,"<a href=\"config\/requete.php.html#112\">app\\config\\Requete::verify_password<\/a>"],[0,2,"<a href=\"config\/requete.php.html#123\">app\\config\\Requete::seacrh_restaurant<\/a>"],[0,5,"<a href=\"config\/requete.php.html#145\">app\\config\\Requete::search_restaurant_unified<\/a>"],[0,1,"<a href=\"config\/requete.php.html#190\">app\\config\\Requete::register_user<\/a>"],[0,1,"<a href=\"config\/requete.php.html#203\">app\\config\\Requete::get_note_restaurant<\/a>"],[0,2,"<a href=\"config\/requete.php.html#214\">app\\config\\Requete::get_reviews_restaurants<\/a>"],[0,2,"<a href=\"config\/requete.php.html#237\">app\\config\\Requete::get_reviews_user<\/a>"],[0,1,"<a href=\"config\/requete.php.html#269\">app\\config\\Requete::get_user_by_id<\/a>"],[0,1,"<a href=\"config\/requete.php.html#284\">app\\config\\Requete::add_review<\/a>"],[0,1,"<a href=\"config\/requete.php.html#295\">app\\config\\Requete::get_cuisines_favorite<\/a>"],[0,1,"<a href=\"config\/requete.php.html#306\">app\\config\\Requete::add_cuisine_favorite<\/a>"],[0,1,"<a href=\"config\/requete.php.html#316\">app\\config\\Requete::delete_cuisine_favorite<\/a>"],[0,1,"<a href=\"config\/requete.php.html#326\">app\\config\\Requete::get_id_cuisine<\/a>"],[0,2,"<a href=\"config\/requete.php.html#337\">app\\config\\Requete::get_restaurants_favorite<\/a>"],[0,5,"<a href=\"config\/requete.php.html#359\">app\\config\\Requete::get_adresse<\/a>"],[0,2,"<a href=\"config\/requete.php.html#405\">app\\config\\Requete::update_review<\/a>"],[0,1,"<a href=\"config\/requete.php.html#431\">app\\config\\Requete::delete_review<\/a>"],[0,2,"<a href=\"config\/requete.php.html#440\">app\\config\\Requete::get_review_by_id<\/a>"],[0,1,"<a href=\"config\/requete.php.html#466\">app\\config\\Requete::add_restaurant_favorite<\/a>"],[0,1,"<a href=\"config\/requete.php.html#475\">app\\config\\Requete::remove_restaurant_favorite<\/a>"],[0,7,"<a href=\"controllers\/ConnexionController.php.html#7\">app\\controllers\\ConnexionController::login<\/a>"],[0,1,"<a href=\"controllers\/ConnexionController.php.html#46\">app\\controllers\\ConnexionController::logout<\/a>"],[0,7,"<a href=\"controllers\/InscriptionController.php.html#7\">app\\controllers\\InscriptionController::register<\/a>"],[0,8,"<a href=\"controllers\/RestaurantController.php.html#13\">app\\controllers\\RestaurantController::index<\/a>"],[0,6,"<a href=\"controllers\/RestaurantController.php.html#45\">app\\controllers\\RestaurantController::show<\/a>"],[0,8,"<a href=\"controllers\/RestaurantController.php.html#69\">app\\controllers\\RestaurantController::addReview<\/a>"],[0,7,"<a href=\"controllers\/RestaurantController.php.html#95\">app\\controllers\\RestaurantController::addFavorite<\/a>"],[0,7,"<a href=\"controllers\/RestaurantController.php.html#121\">app\\controllers\\RestaurantController::removeFavorite<\/a>"],[83.33333333333334,4,"<a href=\"models\/Restaurant.php.html#46\">app\\models\\Restaurant::__construct<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#64\">app\\models\\Restaurant::getRestaurantId<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#69\">app\\models\\Restaurant::getName<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#74\">app\\models\\Restaurant::getType<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#79\">app\\models\\Restaurant::isVegetarian<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#84\">app\\models\\Restaurant::isVegan<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#89\">app\\models\\Restaurant::hasDelivery<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#94\">app\\models\\Restaurant::hasTakeaway<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#99\">app\\models\\Restaurant::getPhone<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#104\">app\\models\\Restaurant::getWebsite<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#109\">app\\models\\Restaurant::getAddress<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#114\">app\\models\\Restaurant::getLatitude<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#119\">app\\models\\Restaurant::getLongitude<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#124\">app\\models\\Restaurant::getOpeningHours<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#129\">app\\models\\Restaurant::hasWheelchairAccessibility<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#134\">app\\models\\Restaurant::getInternetAccess<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#139\">app\\models\\Restaurant::isSmokingAllowed<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#144\">app\\models\\Restaurant::getCapacity<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#149\">app\\models\\Restaurant::hasDriveThrough<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#154\">app\\models\\Restaurant::getFacebook<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#159\">app\\models\\Restaurant::getSiret<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#164\">app\\models\\Restaurant::getDepartment<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#169\">app\\models\\Restaurant::getRegion<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#174\">app\\models\\Restaurant::getBrand<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#179\">app\\models\\Restaurant::getWikidata<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#184\">app\\models\\Restaurant::getBrandWikidata<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#189\">app\\models\\Restaurant::getComInsee<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#194\">app\\models\\Restaurant::getCodeRegion<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#199\">app\\models\\Restaurant::getCodeDepartement<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#204\">app\\models\\Restaurant::getCommune<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#209\">app\\models\\Restaurant::getComNom<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#214\">app\\models\\Restaurant::getCodeCommune<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#219\">app\\models\\Restaurant::getOsmEdit<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#224\">app\\models\\Restaurant::getOsmId<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#229\">app\\models\\Restaurant::getOperator<\/a>"],[100,1,"<a href=\"models\/Restaurant.php.html#234\">app\\models\\Restaurant::getCuisines<\/a>"],[100,1,"<a href=\"models\/Reviews.php.html#13\">app\\models\\Reviews::__construct<\/a>"],[100,1,"<a href=\"models\/Reviews.php.html#23\">app\\models\\Reviews::getId<\/a>"],[100,1,"<a href=\"models\/Reviews.php.html#27\">app\\models\\Reviews::getRestaurant<\/a>"],[100,1,"<a href=\"models\/Reviews.php.html#31\">app\\models\\Reviews::getUser<\/a>"],[100,1,"<a href=\"models\/Reviews.php.html#35\">app\\models\\Reviews::getRating<\/a>"],[100,1,"<a href=\"models\/Reviews.php.html#39\">app\\models\\Reviews::getComment<\/a>"],[100,1,"<a href=\"models\/Reviews.php.html#43\">app\\models\\Reviews::getDate<\/a>"],[100,1,"<a href=\"models\/Reviews.php.html#47\">app\\models\\Reviews::setRating<\/a>"],[100,1,"<a href=\"models\/Reviews.php.html#51\">app\\models\\Reviews::setComment<\/a>"],[100,1,"<a href=\"models\/User.php.html#15\">app\\models\\User::__construct<\/a>"],[100,1,"<a href=\"models\/User.php.html#24\">app\\models\\User::getId<\/a>"],[0,1,"<a href=\"models\/User.php.html#25\">app\\models\\User::getPrenom<\/a>"],[0,1,"<a href=\"models\/User.php.html#26\">app\\models\\User::getEmail<\/a>"],[0,1,"<a href=\"models\/User.php.html#27\">app\\models\\User::getPassword<\/a>"],[0,1,"<a href=\"models\/User.php.html#28\">app\\models\\User::getNom<\/a>"],[0,3,"<a href=\"models\/User.php.html#35\">app\\models\\User::save<\/a>"],[0,2,"<a href=\"models\/User.php.html#66\">app\\models\\User::findByEmail<\/a>"],[0,2,"<a href=\"services\/jsonloader.php.html#9\">app\\services\\jsonloader::load<\/a>"],[0,3,"<a href=\"services\/jsonloader.php.html#23\">app\\services\\jsonloader::getAddressFromCoordinates<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
