@@ -42,8 +42,6 @@ class RestaurantController {
         require_once __DIR__ . '/../views/restaurants/restaurant_list.php';
     }    
     
-    
-
     public function show($id) {
         $jsonImage = __DIR__ . '/../../app/data/restaurant_images.json';
         $images = jsonloader::load($jsonImage);
@@ -93,4 +91,57 @@ class RestaurantController {
             exit;
         }
     }
+
+    public function addFavorite() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?controller=connexion&action=login");
+            exit;
+        }
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['restaurant_id'])) {
+            $restaurant_id = intval($_POST['restaurant_id']);
+            $user_id = $_SESSION['user_id'];
+    
+            // Récupérer l'objet restaurant et utilisateur
+            $user = Requete::get_user_by_id($user_id);  // Méthode pour récupérer l'utilisateur
+            $restaurant = Requete::get_restaurant($restaurant_id);  // Méthode pour récupérer le restaurant
+    
+            if ($user && $restaurant) {
+                Requete::add_restaurant_favorite($user, $restaurant);  // Passer les objets au lieu des IDs
+            }
+    
+            header("Location: index.php?controller=restaurant&action=show&id=" . $restaurant_id);
+            exit;
+        }
+    }
+    
+    public function removeFavorite() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: index.php?controller=connexion&action=login");
+            exit;
+        }
+    
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['restaurant_id'])) {
+            $restaurant_id = intval($_POST['restaurant_id']);
+            $user_id = $_SESSION['user_id'];
+    
+            // Récupérer l'objet restaurant et utilisateur
+            $user = Requete::get_user_by_id($user_id);  // Méthode pour récupérer l'utilisateur
+            $restaurant = Requete::get_restaurant($restaurant_id);  // Méthode pour récupérer le restaurant
+    
+            if ($user && $restaurant) {
+                Requete::remove_restaurant_favorite($user, $restaurant);  // Passer les objets au lieu des IDs
+            }
+    
+            header("Location: index.php?controller=restaurant&action=show&id=" . $restaurant_id);
+            exit;
+        }
+    }
+    
 }

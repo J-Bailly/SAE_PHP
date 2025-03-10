@@ -13,7 +13,6 @@ if (!empty($restaurants)) {
         echo "<img class='restaurant-image' src='{$imageUrl}' alt='{$name}'>";
         echo "<div class='restaurant-interieur'>";
         echo "<h2>{$name}</h2>";
-        echo "<p>Avis : {$stars}</p>";
         echo "<p>Horaires : {$openingHours}</p>";
         echo "</div>";
         echo "</a>";
