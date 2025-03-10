@@ -6,6 +6,7 @@ use app\services\jsonloader;
 use app\models\Restaurant;
 use app\models\Reviews;
 use app\config\requete;
+require_once __DIR__ . '/../config/requete.php';
 
 class RestaurantController {
     
@@ -64,12 +65,13 @@ class RestaurantController {
                 break;
             }
         }
-
         require_once __DIR__ . '/../views/restaurants/restaurant_details.php';
     }
 
     public function addReview() {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         if (!isset($_SESSION['user_id'])) {
             header("Location: index.php?controller=connexion&action=login");
             exit;
@@ -85,7 +87,7 @@ class RestaurantController {
                 die("Données invalides.");
             }
     
-            Reviews::add($restaurant_id, $user_id, $rating, $comment);
+            Requete::add_review($restaurant_id, $user_id, $rating, $comment);
     
             header("Location: index.php?controller=restaurant&action=show&id=" . $restaurant_id);
             exit;

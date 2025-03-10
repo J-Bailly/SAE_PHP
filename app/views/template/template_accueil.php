@@ -18,15 +18,14 @@
                 </a>
                 <a href="index.php" class="boutonNavGauche">Accueil</a>
                 <?php if (isset($_SESSION['user_id'])): // Si l'utilisateur est connecté ?>
-                    <a href="#" class="boutonNavGauche">Mes Avis</a>
-                    <a href="#" class="boutonNavGauche">Favoris</a>
+                    <a href="app/views/avis/avis_utilisateur.php" class="boutonNavGauche">Mes Avis</a>
+                    <a href="app/views/restaurants/restaurant_favoris.php" class="boutonNavGauche">Favoris</a>
                 <?php endif; ?>
             </div>
 
             <div class="nav-center">
                 <form action="index.php" method="GET">
                     <input type="search" name="search" placeholder="KFC fast_food bar McDO..." />
-                    <button type="submit" style="display:none;"></button>
                 </form>
             </div>
 

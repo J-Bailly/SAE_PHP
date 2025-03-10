@@ -1,9 +1,13 @@
 <?php
-session_start();
-require_once("../template/template.php");
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 require_once __DIR__ . '/../../config/Database.php';
 require_once __DIR__ . '/../../config/requete.php';
 require_once __DIR__ . '/../../services/jsonloader.php';
+
+require_once(__DIR__ . '/../template/template.php');
+
 
 use app\config\Database;
 use app\config\Requete;
@@ -63,7 +67,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($restaurant->getName()) ?></title>
-    <link rel="stylesheet" href="../../assets/css/details.css" />
+    <link rel="stylesheet" href="/app/assets/css/details.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
 </head>
 <body>
@@ -96,7 +100,7 @@ try {
                       <strong><?= htmlspecialchars($review->getUser()->getPrenom()) ?> :</strong>
                       <span>Note : <?= $review->getRating() ?>/5</span>
                       <p><?= htmlspecialchars($review->getComment()) ?></p>
-                      <small>Posté le <?= $review->getCreatedAt() ?></small>
+                      <small>Posté le <?= $review->getDate() ?></small>
                   </div>
               <?php endforeach; ?>
           <?php else: ?>
@@ -106,15 +110,15 @@ try {
 
         <?php if (isset($_SESSION['user_id'])): ?>
             <h2>Laissez un avis</h2>
-            <form action="index.php?controller=restaurant&action=addReview" method="POST">
+            <form action="/index.php?controller=restaurant&action=addReview" method="POST">
                 <input type="hidden" name="restaurant_id" value="<?= htmlspecialchars($restaurant->getRestaurantId()) ?>">
                 <label for="rating">Note :</label>
                 <select name="rating" id="rating" required>
-                    <option value="5">5 - Excellent</option>
-                    <option value="4">4 - Très bon</option>
-                    <option value="3">3 - Moyen</option>
-                    <option value="2">2 - Mauvais</option>
-                    <option value="1">1 - Horrible</option>
+                    <option value="5">⭐⭐⭐⭐⭐</option>
+                    <option value="4">⭐⭐⭐⭐</option>
+                    <option value="3">⭐⭐⭐</option>
+                    <option value="2">⭐⭐</option>
+                    <option value="1">⭐</option>
                 </select>
                 <label for="comment">Votre avis :</label>
                 <textarea name="comment" id="comment" required></textarea>

@@ -19,7 +19,9 @@ class ConnexionController {
 
             if ($user) {
                 if (password_verify($password, $user->getPassword())) {
-                    session_start();
+                    if (session_status() == PHP_SESSION_NONE) {
+                        session_start();
+                    }
                     $_SESSION['user_id'] = $user->getId();
                     $_SESSION['user_name'] = $user->getPrenom();
 
