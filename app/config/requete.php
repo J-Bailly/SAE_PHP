@@ -1,12 +1,21 @@
 <?php
-
 namespace app\config;
 
 use app\config\Database;
+require_once __DIR__ . '/Database.php';
+
 use app\models\Restaurant;
+
+use app\models\Reviews;
+require_once __DIR__ . '/../models/Reviews.php';
+
 use app\models\User;
+require_once __DIR__ . '/../models/User.php';
+
 use PDO;
 use PDOException;
+
+require_once __DIR__ . '/../models/Restaurant.php';
 
 class Requete {
 
@@ -33,8 +42,6 @@ class Requete {
     }
 
     
-
-
     static public function get_restaurant($restaurant_id) {
         $pdo = Database::getConnection();
         $sql = "SELECT * FROM public.".'"Restaurants"'." WHERE restaurant_id = :restaurant_id";
@@ -88,14 +95,14 @@ class Requete {
 
     static public function get_user($email, $password) {
         $pdo = Database::getConnection();
-        $sql = "SELECT * FROM public.".'"Users"'." WHERE email = :email AND password = :password";
+        $sql = "SELECT * FROM public.".'"Utilisateur"'." WHERE email = :email AND password = :password";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->bindValue(':password', $password, PDO::PARAM_STR);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        $cuisines_favorite = $this::get_cuisines_favorite($user['id']);
-        $restaurants_favoris = $this::get_restaurants_favorite($user['id']);
+        $cuisines_favorite = Requete::get_cuisines_favorite($user['id']);
+        $restaurants_favoris = Requete::get_restaurants_favorite($user['id']);
 
         $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom'], $cuisines_favorite, $restaurants_favoris);
 
@@ -104,7 +111,7 @@ class Requete {
 
     static public function verify_password($email, $password) {
         $pdo = Database::getConnection();
-        $sql = "SELECT password_hash FROM public.".'"Users"'." WHERE email = :email";
+        $sql = "SELECT password_hash FROM public.".'"Utilisateur"'." WHERE email = :email";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
@@ -182,7 +189,7 @@ class Requete {
 
     static public function register_user($prenom, $nom, $email, $password) {
         $pdo = Database::getConnection();
-        $sql = "INSERT INTO public.".'"Users"'." (prenom, nom, email, password_hash) VALUES (:prenom, :nom, :email, :password_hash)";
+        $sql = "INSERT INTO public.".'"Utilisateur"'." (prenom, nom, email, password_hash) VALUES (:prenom, :nom, :email, :password_hash)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':prenom', $prenom, PDO::PARAM_STR);
         $stmt->bindValue(':nom', $nom, PDO::PARAM_STR);
@@ -190,7 +197,7 @@ class Requete {
         $stmt->bindValue(':password_hash', password_hash($password, PASSWORD_DEFAULT), PDO::PARAM_STR);
         $stmt->execute();
 
-        return $this::get_user($email, $password);
+        return Requete::get_user($email, $password);
     }
 
     static public function get_note_restaurant($restaurant_id) {
@@ -213,28 +220,63 @@ class Requete {
         $stmt->bindValue(':restaurant_id', $restaurant_id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $restaurant = $this::get_restaurant($restaurant_id);
-
+    
+        // Utilisation de self:: pour appeler une méthode statique
+        $restaurant = self::get_restaurant($restaurant_id);  // Correction ici
+    
         foreach ($result as $index => $review) {
-            $user = $this::get_user_by_id($review['user_id']);
-            $new_review = new Reviews($review['id'], $restaurant, $user, $review['rating'], $review['comment'], $review['created_at']);
+            // Utilisation de self:: pour appeler une méthode statique
+            $user = self::get_user_by_id($review['user_id']);  // Correction ici
+            $new_review = new Reviews($review['reviews_id'], $restaurant, $user, $review['rating'], $review['comment'], $review['created_at']);
             $liste_reviews[$index] = $new_review;
         }
-
+    
         return $liste_reviews;
     }
 
+    static public function get_reviews_user($user_id) {
+        $pdo = Database::getConnection();
+        $liste_reviews = [];
+
+        $sql = "SELECT * FROM public.".'"Reviews"'." WHERE user_id = :user_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        foreach ($result as $index => $review) {
+            $restaurant = self::get_restaurant($review['restaurant_id']); // Récupération du restaurant associé
+            $user = self::get_user_by_id($review['user_id']); // Récupération de l'utilisateur associé
+            
+            // Instancier un nouvel avis avec toutes les infos nécessaires
+            $new_review = new \app\models\Reviews(
+                $review['reviews_id'], 
+                $restaurant, 
+                $user, 
+                $review['rating'], 
+                $review['comment'], 
+                $review['created_at']
+            );
+    
+            $liste_reviews[$index] = $new_review;
+        }
+    
+        return $liste_reviews;
+    }
+    
+    
+
     static public function get_user_by_id($user_id) {
         $pdo = Database::getConnection();
-        $sql = "SELECT * FROM public.".'"Users"'." WHERE id = :user_id";
+        $sql = "SELECT * FROM public.".'"Utilisateur"'." WHERE user_id = :user_id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        $cuisines_favorite = $this::get_cuisines_favorite($user_id);
-        $restaurants_favoris = $this::get_restaurants_favorite($user_id);
+        $cuisines_favorite = Requete::get_cuisines_favorite($user_id);
+        $restaurants_favoris = Requete::get_restaurants_favorite($user_id);
 
-        $user = new User($user['id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom'], $cuisines_favorite, $restaurants_favoris);
+        $user = new User($user['user_id'], $user['prenom'], $user['email'], $user['password_hash'], $user['nom'], $cuisines_favorite, $restaurants_favoris);
 
         return $user;
     }
@@ -252,7 +294,7 @@ class Requete {
 
     static public function get_cuisines_favorite($user_id) {
         $pdo = Database::getConnection();
-        $sql = "SELECT name FROM public.".'"Users_Cuisines"'." natural join public.".'"Cuisines"'." WHERE user_id = :user_id";
+        $sql = "SELECT name FROM public.".'"Cuisines_Favoris"'." natural join public.".'"Cuisines"'." WHERE user_id = :user_id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
@@ -263,7 +305,7 @@ class Requete {
 
     static public function add_cuisine_favorite($user_id, $cuisine) {
         $pdo = Database::getConnection();
-        $cuisine_id = $this::get_id_cuisine($cuisine);
+        $cuisine_id = Requete::get_id_cuisine($cuisine);
         $sql = "INSERT INTO public.".'"Cuisines_Favoris"'." (user_id, cuisine_id) VALUES (:user_id, :cuisine_id)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -273,7 +315,7 @@ class Requete {
 
     static public function delete_cuisine_favorite($user_id, $cuisine) {
         $pdo = Database::getConnection();
-        $cuisine_id = $this::get_id_cuisine($cuisine);
+        $cuisine_id = Requete::get_id_cuisine($cuisine);
         $sql = "DELETE FROM public.".'"Cuisines_Favoris"'." WHERE user_id = :user_id AND cuisine_id = :cuisine_id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -314,43 +356,116 @@ class Requete {
         return $liste_restaurants;
     }
 
-    static public function add_restaurant_favorite($user_id, $restaurant_id) {
+    static public function get_adresse($restaurant_id) {
         $pdo = Database::getConnection();
-        $sql = "INSERT INTO public.".'"Restaurant_Favoris"'." (user_id, restaurant_id) VALUES (:user_id, :restaurant_id)";
+        $sql = "SELECT latitude, longitude FROM public.".'"Restaurants"'." WHERE restaurant_id = :restaurant_id";
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->bindValue(':restaurant_id', $restaurant_id, PDO::PARAM_INT);
         $stmt->execute();
+        $coords = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if (!$coords) {
+            return null; // Retourne null si aucune donnée trouvée
+        }
+    
+        $latitude = $coords['latitude'];
+        $longitude = $coords['longitude'];
+    
+        // Utilisation d'un service externe pour convertir lat/lon en adresse
+        $url = "https://nominatim.openstreetmap.org/reverse?format=json&lat={$latitude}&lon={$longitude}";
+    
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0'); // Certains services exigent un User-Agent
+        $response = curl_exec($ch);
+        
+        // Vérifier les erreurs de cURL
+        if(curl_errno($ch)) {
+            echo 'Erreur cURL: ' . curl_error($ch);
+        }
+        
+        curl_close($ch);
+    
+        // Vérifier si la réponse est valide
+        if (empty($response)) {
+            return "Erreur lors de la récupération de l'adresse.";
+        }
+    
+        $data = json_decode($response, true);
+    
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return 'Erreur de décodage JSON: ' . json_last_error_msg();
+        }
+    
+        // Retourner l'adresse ou un message d'erreur
+        return $data['display_name'] ?? "Adresse non trouvée";
     }
-
-    static public function delete_restaurant_favorite($user_id, $restaurant_id) {
+    
+    static public function update_review($review_id, $new_rating, $new_comment) {
+        // Se connecter à la base de données
         $pdo = Database::getConnection();
-        $sql = "DELETE FROM public.".'"Restaurant_Favoris"'." WHERE user_id = :user_id AND restaurant_id = :restaurant_id";
+    
+        // Créer la requête SQL pour mettre à jour l'avis
+        $sql = "UPDATE public.\"Reviews\" 
+                SET rating = :rating, comment = :comment 
+                WHERE reviews_id = :review_id";
+    
+        // Préparer la requête
         $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-        $stmt->bindValue(':restaurant_id', $restaurant_id, PDO::PARAM_INT);
-        $stmt->execute();
+    
+        // Lier les paramètres à la requête préparée
+        $stmt->bindParam(':review_id', $review_id, PDO::PARAM_INT);
+        $stmt->bindParam(':rating', $new_rating, PDO::PARAM_INT);
+        $stmt->bindParam(':comment', $new_comment, PDO::PARAM_STR);
+    
+        // Exécuter la requête
+        if ($stmt->execute()) {
+            return true; // Retourne true si la mise à jour réussie
+        } else {
+            return false; // Retourne false si la mise à jour échoue
+        }
     }
-
-    static public function update_review($review) {
-        $pdo = Database::getConnection();
-        $sql = "UPDATE public.".'"Reviews"'." SET rating = :rating, comment = :comment WHERE id = :id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':rating', $review->getRating(), PDO::PARAM_INT);
-        $stmt->bindValue(':comment', $review->getComment(), PDO::PARAM_STR);
-        $stmt->bindValue(':id', $review->getId(), PDO::PARAM_INT);
-        $stmt->execute();
-    }
+    
 
     static public function delete_review($review) {
         $pdo = Database::getConnection();
-        $sql = "DELETE FROM public.".'"Reviews"'." WHERE id = :id";
+        $sql = "DELETE FROM public.".'"Reviews"'." WHERE reviews_id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':id', $review->getId(), PDO::PARAM_INT);
         $stmt->execute();
     }
 
+    // Dans la classe Requete
+    static public function get_review_by_id($review_id) {
+        $pdo = Database::getConnection();
+        $sql = "SELECT * FROM public.\"Reviews\" WHERE reviews_id = :review_id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':review_id', $review_id, PDO::PARAM_INT);
+        $stmt->execute();
+    
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($row) {
+            // Si l'avis est trouvé, crée un objet Reviews et retourne-le
+            return new Reviews(
+                $row['reviews_id'], 
+                $row['restaurant_id'], 
+                $row['user_id'], 
+                $row['rating'], 
+                $row['comment'], 
+                $row['date']
+            );
+        }
+    
+        // Affichage d'un message d'erreur dans les logs si l'avis n'est pas trouvé
+        error_log("Avis introuvable pour review_id: $review_id");
+        return null; // Si aucune donnée n'est trouvée
+    }
+    
+    
 
+    
 
 
 }

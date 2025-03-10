@@ -1,0 +1,16 @@
+/* Conteneur du formulaire d'inscription */
+.form-container {
+    background-color: #EEEDFF;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 500px;
+    margin: 50px auto;
+}
+
+/* Titre du formulaire */
+.form-container h1 {
+    text-align: center;
+    color: #284E7B;
+    margin-bottom: 20px;
+}

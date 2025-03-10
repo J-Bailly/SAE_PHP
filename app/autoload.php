@@ -1,7 +1,6 @@
 <?php
 
 spl_autoload_register(function ($class) {
-    // Convertir le namespace en chemin de fichier
     $class = str_replace("app\\", "app/", $class);
     $class = str_replace("\\", "/", $class) . ".php";
 

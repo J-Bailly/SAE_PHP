@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -9,7 +5,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flavorya</title>
-    <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="stylesheet" href="/app/assets/css/styles.css">
     <link rel="icon" type="image/png" href="../../assets/images/flavorya.png">
 </head>
 
@@ -17,19 +13,19 @@ session_start();
     <header>
         <nav>
             <div class="nav-left">
-                <a href="../../../index.php">
-                    <img src="../../assets/images/flavorya.png" alt="Flavorya Logo" class="logo">
+                <a href="/index.php">
+                    <img src="/app/assets/images/flavorya.png" alt="Flavorya Logo" class="logo">
                 </a>
-                <a href="../../../index.php" class="boutonNavGauche">Accueil</a>
+                <a href="/index.php" class="boutonNavGauche">Accueil</a>
                 <?php if (isset($_SESSION['user_id'])): // Si l'utilisateur est connecté ?>
-                    <a href="#" class="boutonNavGauche">Mes Avis</a>
-                    <a href="#" class="boutonNavGauche">Favoris</a>
+                    <a href="/app/views/avis/avis_utilisateur.php" class="boutonNavGauche">Mes Avis</a>
+                    <a href="/app/views/restaurants/restaurant_favoris.php" class="boutonNavGauche">Favoris</a>
                 <?php endif; ?>
             </div>
 
             <div class="nav-center">
                 <form method="GET" action="../../../index.php">
-                    <input type="search" name="search" placeholder="Rechercher un restaurant...">
+                    <input type="search" name="search" placeholder="KFC fast_food bar McDO...">
                 </form>
             </div>
 

@@ -34,6 +34,12 @@ class User {
      */
     public function save(): bool {
         $pdo = Database::getConnection();
+    
+        // Vérifier si l'email existe déjà
+        if (self::findByEmail($this->email) !== null) {
+            return false; // Éviter l'insertion si l'utilisateur existe
+        }
+    
         $sql = 'INSERT INTO "Utilisateur" (email, password_hash, nom, prenom)
                 VALUES (:email, :password_hash, :nom, :prenom)';
         $stmt = $pdo->prepare($sql);
@@ -41,13 +47,15 @@ class User {
         $stmt->bindValue(':password_hash', $this->password);
         $stmt->bindValue(':nom', $this->nom);
         $stmt->bindValue(':prenom', $this->prenom);
-
+    
         $result = $stmt->execute();
+    
         if ($result) {
             $this->id = $pdo->lastInsertId();
         }
         return $result;
     }
+    
 
     /**
      * Récupère un utilisateur par son email.
